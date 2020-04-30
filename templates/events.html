@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container mt-5" ></div>
+<div class="jumbotron text-center mt-5 ">
+  <h1>PartyFundME</h1>
+  <p class="lead">Lets Party....</p>
+</div>
+  <ul class="list-group">
+    {% for event in events %}
+    <li class="list-group-item"><a href="/event/{{event.id}}">{{event.title}}</a></li>
+  {% endfor %}
+  </ul>
+    
+ 
+{% endblock %}
