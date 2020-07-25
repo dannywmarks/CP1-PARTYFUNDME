@@ -1,0 +1,50 @@
+{% extends 'layout.html' %} {% block content %}
+
+<!-- # name_of_event, 
+# event_flyer_img, 
+# promo_video_link, 
+# desc, 
+# number_of_guests, 
+# date_of_party, 
+# target_goal, 
+# total_fund,  
+# venue, -->
+
+<div class="container mt-5">
+  <h1>Register Event</h1>
+  {% from "includes/_formhelpers.html" import render_field %}
+  <form method="POST" action="{{ url_for('events.signup') }}">
+    {{ form.csrf_token }}
+    <div class="form-group">
+      {{render_field(form.name_of_event, class_="form-control")}}
+    </div>
+    <div class="form-group">
+      {{render_field(form.event_flyer_img, class_="form-control")}}
+    </div>
+    <div class="form-group">
+      {{render_field(form.promo_video_link, class_="form-control")}}
+    </div>
+    <div class="form-group">
+      {{render_field(form.desc, class_="form-control")}}
+    </div>
+    <div class="form-group">
+      {{render_field(form.number_of_guests, class_="form-control")}}
+    </div>
+    <div class="form-group">
+      {{render_field(form.date_of_party, class_="form-control")}}
+    </div>
+    <div class="form-group">
+      {{render_field(form.target_goal, class_="form-control")}}
+    </div>
+    <div class="form-group">
+      {{render_field(form.total_fund, class_="form-control")}}
+    </div>
+    <div class="form-group">
+      {{render_field(form.venue, class_="form-control")}}
+    </div>
+
+    <p><input type="submit" class="btn btn-primary" value="Submit" /></p>
+  </form>
+</div>
+
+{% endblock%}

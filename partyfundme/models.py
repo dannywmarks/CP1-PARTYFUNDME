@@ -1,11 +1,11 @@
 from . import db, bcrypt
-from flask_login import UserMixin, login_manager
-
-
+from flask_login import UserMixin, login_manager, current_user
+from flask_dance.consumer.storage.sqla import OAuthConsumerMixin, SQLAlchemyStorage
+from .users.oauth import twitter_blueprint, google_blueprint
 # pylint: disable=E1101
-
-
-
+DEFAULT_IMAGE_URL = '' 
+DEFAULT_EVENT_IMAGE_URL = ''
+DEFAULT_VIDEO_URL = ''
 class User(UserMixin, db.Model):
     """User account model."""
 
@@ -35,6 +35,11 @@ class User(UserMixin, db.Model):
         unique=False,
         nullable=False
     )
+    email_confirmed = db.Column(
+        db.Boolean,
+        nullable=False,
+        default=False
+    )
     created_on = db.Column(
         db.DateTime,
         index=False,
@@ -50,23 +55,23 @@ class User(UserMixin, db.Model):
 
     # start register
     @classmethod
-    def register(cls, username, pwd):
+    def register(cls, name, email, username, password):
         """Register user w/hashed password and return user."""
-        hashed = bcrypt.generate_password_hash(pwd)
+        hashed = bcrypt.generate_password_hash(password)
         """turn byte_string into normal(unicode utf8) string"""
         hashed_utf8 = hashed.decode('utf8')
 
         # return instance of user w/username and hashed pwd
-        return cls(username=username, password=hashed_utf8)
+        return cls(name=name, email=email, username=username, password=hashed_utf8)
       # end register
 
     # user authetication
     @classmethod
-    def authenticate(cls, username, pwd):
+    def authenticate(cls, email, pwd):
         """Validate that user exists and password is correct.
         Return user if valid; else return False."""
 
-        u = User.query.filter_by(username=username).first()
+        u = User.query.filter_by(email=email).first()
 
         if u and bcrypt.check_password_hash(u.password, pwd):
             # return user instance
@@ -76,49 +81,285 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
+
+
+class OAuth(OAuthConsumerMixin, db.Model):
+    """ Flask Dance OAUTH table """
+    user_id = db.Column(db.Integer, db.ForeignKey(User.id))
+    user = db.relationship(User)
+    
+twitter_blueprint.backend = SQLAlchemyStorage(OAuth, db.session, user=current_user)
+
+google_blueprint.backend = SQLAlchemyStorage(OAuth, db.session, user=current_user)
+
+
+
+class Bar(db.Model):
+    """Bars Profile Table"""
+
+    __tablename__ = 'bars'
+
+    id = db.Column(
+        db.Integer, 
+        primary_key=True, 
+        autoincrement=True
+    )
+    bar_name = db.Column(
+        db.String(100), 
+        nullable=False, 
+        unique=False
+    )
+    address = db.Column(
+        db.String(100), 
+        nullable=False, 
+        unique=True
+    )
+    city = db.Column(
+        db.String(50),
+        nullable=False
+    )
+    state = db.Column(
+        db.String(50), 
+        nullable=False
+    )
+    country = db.Column(
+        db.String(25), 
+        nullable=False
+    )
+    email = db.Column(
+        db.String(40),
+        unique=True,
+        nullable=False
+    )
+    email_confirmed = db.Column(
+        db.Boolean,
+        nullable=False,
+        default=False
+    )
+    phone = db.Column(
+        db.String(50),
+        unique=True,
+        nullable=False
+    )
+    img = db.Column(
+        db.String(150),
+        nullable=False,
+        default=DEFAULT_IMAGE_URL
+    )
+    desc = db.Column(
+        db.String(255),
+        nullable=True
+    )
+    website = db.Column(
+        db.String(150),
+        unique=True,
+        nullable = True
+    )
+    facebook = db.Column(
+        db.String(150),
+        unique=True,
+        nullable=True
+    )
+    instagram = db.Column(
+        db.String(150),
+        unique=True,
+        nullable=True
+    )
+    twitter = db.Column(
+        db.String(150),
+        unique=True,
+        nullable=True
+    )
+    created_on = db.Column(
+        db.DateTime,
+        index=False,
+        unique=False,
+        nullable=True
+    )
+
+    # start register
+    @classmethod
+    def register(
+        cls, 
+        bar_name, 
+        address, 
+        city, 
+        state, 
+        country, 
+        email, 
+        phone, 
+        img, 
+        desc, 
+        website, 
+        facebook, 
+        instagram, 
+        twitter):
+
+        # return instance of bar
+        return cls(
+            bar_name=bar_name,
+            address=address,
+            city=city,
+            state=state,
+            country=country,
+            email=email,
+            phone=phone,
+            img=img,
+            desc=desc,
+            website=website,
+            facebook=facebook,
+            instagram=instagram,
+            twitter=twitter)
+      # end register
+
+    def __repr__(self):
+        return '<Bar {}>'.format(self.username)
+
+    def image_url(self):
+        """Return default bar img."""
+
+        return self.image or DEFAULT_IMAGE_URL
+    
+    def to_dict(self):
+        """Serialize Bar to a dict of Bar info."""
+
+        return {
+            "id": self.id,
+            "bar_name": self.bar_name,
+            "info": {
+                "email": self.email,
+                "phone": self.phone,
+                "website": self.website,
+                "img": self.img,
+                "desc": self.desc,
+            },
+            "location": {
+                "address": self.address,
+                "city": self.city,
+                "state": self.state,
+                "country": self.country,
+            },
+            "social_media": {
+                "facebook": self.facebook,
+                "instagram": self.instagram,
+                "twitter": self.twitter
+            }
+        }
+
+class Event(db.Model):
+    """ Events Table """
+
+    __tablename__ = 'events'
+
+
+    id = db.Column(
+        db.Integer, 
+        primary_key=True, 
+        autoincrement=True
+    )
+    name_of_event = db.Column(
+        db.String(100), 
+        nullable=False, 
+        unique=False
+    )
+    event_flyer_img = db.Column(
+        db.String(150),
+        nullable=False,
+        default=DEFAULT_EVENT_IMAGE_URL
+    )
+    promo_video_link = db.Column(
+        db.String(255),
+        nullable=False,
+        default=DEFAULT_VIDEO_URL
+    )
+    desc = db.Column(
+        db.String(255),
+        nullable=False
+    )
+    number_of_guests = db.Column(
+        db.String(50),
+        nullable=False
+    )
+    date_of_party = db.Column(
+        db.String(50),
+        nullable=False
+    )
+    # DATECREATED TIME STAMP
+    target_goal = db.Column(
+        db.String(50),
+        nullable=False
+    )
+    total_fund = db.Column(
+        db.String(50),
+        nullable=False
+    )
+    venue = db.Column(
+        db.String(50),
+        nullable=False
+    )
+    created_on = db.Column(
+        db.DateTime,
+        index=False,
+        unique=False,
+        nullable=True
+    )
+
+    @classmethod
+    def register(
+        cls, 
+        name_of_event, 
+        event_flyer_img, 
+        promo_video_link, 
+        desc, 
+        number_of_guests, 
+        date_of_party, 
+        target_goal, 
+        total_fund,  
+        venue, 
+    ):
+
+        # return instance of bar
+        return cls(
+            name_of_event=name_of_event,
+            event_flyer_img=event_flyer_img,
+            promo_video_link=promo_video_link,
+            desc=desc,
+            number_of_guests=number_of_guests,
+            date_of_party=date_of_party,
+            target_goal=target_goal,
+            total_fund=total_fund,
+            venue=venue
+        )
+    
+    def to_dict(self):
+        """Serialize Event to a dict of Event info."""
+
+        return {
+            "id": self.id,
+            "name_of_event": self.name_of_event,
+            "info": {
+                "event_flyer_img": self.event_flyer_img,
+                "promo_video_link": self.promo_video_link,
+                "desc": self.desc,
+                "number_of_guests": self.number_of_guests,
+                "date_of_party": self.date_of_party,
+                "target_goal": self.target_goal,
+                "total_fund": self.total_fund
+            },
+            "location": {
+                "venue": self.venue
+            } 
+        }
+    
     
 
-# class Bar(db.Model):
-#     """Bars Table"""
+class EventListBars(db.Model):
+    """Mapping of a event to a bar."""
 
-#     __tablename__ = 'bars'
+    # ADD THE NECESSARY CODE HERE
+    __tablename__ = 'eventlist_bars'
 
-#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-#     bar_name = db.Column(db.String(25), nullable=False)
-#     address = db.Column(db.String(50), nullable=False)
-#     city = db.Column(db.String(50), nullable=False)
-#     state = db.Column(db.String(2), nullable=False)
-#     country = db.Column(db.String(25), nullable=False)
-#     email = db.Column(db.String(100))
-#     phone = db.Column(db.String(50))
-#     img = db.Column(db.String(150))
-#     website = db.Column(db.String(150))
-#     ##### SEPERATE TABLE? #####
-#     facebook = db.Column(db.String(150))
-#     instagram = db.Column(db.String(150))
-#     twitter = db.Column(db.String(150))
-#     # DATECREATED TIMESTAMP
-
-
-# class Event(db.Model):
-#     """ Events Table """
-
-#     __tablename__ = 'events'
-
-#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-#     bar_id = db.Column(db.Integer)
-#     user_id = db.Column(db.Integer)
-#     date_of_party = db.Column(db.String(25))
-#     # DATECREATED TIME STAMP
-#     funding_duration = db.Column(db.String(25))
-#     goal = db.Column(db.String(25))
-#     total_fund = db.Column(db.String(25))
-#     title = db.Column(db.String(25))
-#     description = db.Column(db.String(255))
-#     event_flyer_img = db.Column(db.String(150))
-#     promo_video = db.Column(db.String(150))
-#     location = db.Column(db.String(50))
-#     #### PAYMENT PROCESSORS???? ######
-#     stripe = db.Column(db.String(25))
-#     paypal = db.Column(db.String(25))
-
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
+    bar_id = db.Column(db.Integer, db.ForeignKey('bars.id'))

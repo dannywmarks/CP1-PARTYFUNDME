@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<section class="container mt-4 mb-4">
+  <h1 class="text-center"><a href="{{ url_for('bars.signup') }}">Register A Bar</a></h1>
+  <div class="container">
+    {% for bar in bars %}
+    <div class="container">
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <div class="d-flex flex-row border rounded">
+              <div class="p-0 w-25">
+                  <img src="https://c1.staticflickr.com/3/2862/12328317524_18e52b5972_k.jpg" class="img-thumbnail border-0" />
+                
+              </div>
+              <div class="pl-3 pt-2 pr-2 pb-2 w-75 border-left">
+                  <h3 class="text-primary">{{bar.bar_name}}</h3>
+                  <h6 class="text-info">Desc</h6>
+                  <h6 class="text-info"><a href="#">Website</a></h6>
+                  <h6 class="text-info">Address</h6>
+                  <h6 class="text-info">State</h6>
+                  <h6 class="text-info">Country</h6>
+                  
+                  
+                  <ul class="m-0 float-left" style="list-style: none; margin:0; padding: 0">
+                    <li><i class="fab fa-facebook-square"></i> Facebook</li>
+                    <li><i class="fab fa-twitter-square"></i> Twitter</li>
+                    <li><i class="fab fa-instagram"></i> Instagram</li>
+                  </ul>
+                <p class="text-right m-0"><a href="#" class="btn btn-primary"><i class="far fa-user"></i> View Profile</a></p>
+            </div>
+          </div>
+        </div>
+        
+    
+    </div>
+  </div>
+  
+
+
+{% endfor %}
+</section>
+
+ 
+{% endblock %}
+
+

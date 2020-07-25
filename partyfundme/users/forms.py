@@ -22,7 +22,6 @@ class SignupForm(FlaskForm):
         'Username',
         validators=[
             Length(min=6),
-            Email(message='Enter a valid Username.'),
             DataRequired()
         ]
     )

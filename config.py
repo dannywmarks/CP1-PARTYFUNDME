@@ -11,10 +11,18 @@ class Config:
 
     FLASK_APP = 'run.py'
     FLASK_ENV = 'development'
-    TESTING = True
+    TESTING = False
     SECRET_KEY = environ.get('SECRET_KEY')
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     DEBUG = True
+
+    # FLASK MAIL
+    MAIL_SERVER='smtp.gmail.com'
+    MAIL_PORT = 587
+    MAIL_USERNAME= environ.get('EMAIL_USER')
+    MAIL_PASSWORD= environ.get('EMAIL_PASSWORD')
+    MAIL_USE_TLS = True
+    MAIL_USE_SSL: False
 
     # STATIC-ASSETS
 
