@@ -1,7 +1,12 @@
 from partyfundme.models import db, Bar, User, Event
 from run import app
+from flask_bcrypt import Bcrypt
+
+bcrypt = Bcrypt()
 
 with app.app_context():
+
+  
 
 
 # pylint: disable=E1101
@@ -13,37 +18,37 @@ with app.app_context():
     name="damage1", 
     email="damage1@me.com", 
     username="damage1", 
-    password="testyou"
+    password=(bcrypt.generate_password_hash("testyou")).decode('utf8')
   )
   u2 = User(
     name="damage2", 
     email="damage2@me.com", 
     username="damage2", 
-    password="testyou"
+    password=(bcrypt.generate_password_hash("testyou")).decode('utf8')
   )
   u3 = User(
     name="damage3", 
     email="damage3@me.com", 
     username="damage3", 
-    password="testyou"
+    password=(bcrypt.generate_password_hash("testyou")).decode('utf8')
   )
   u4 = User(
     name="damage4", 
     email="damage4@me.com", 
     username="damage4", 
-    password="testyou"
+    password=(bcrypt.generate_password_hash("testyou")).decode('utf8')
   )
   u5 = User(
     name="damage5", 
     email="damage5@me.com", 
     username="damage5", 
-    password="testyou"
+    password=(bcrypt.generate_password_hash("testyou")).decode('utf8')
   )
   u6 = User(
     name="damage6", 
     email="damage6@me.com", 
     username="damage6", 
-    password="testyou"
+    password=(bcrypt.generate_password_hash("testyou")).decode('utf8')
   )
 
   db.session.add(u1)
@@ -160,7 +165,7 @@ with app.app_context():
   e1 = Event(
     name_of_event="Daniel's Birthday",
     event_flyer_img="",
-    promo_video_link="",
+    
     desc="Daniel's Bday Party",
     number_of_guests="50",
     date_of_party="05-03-2020",
@@ -170,7 +175,7 @@ with app.app_context():
   e2 = Event(
     name_of_event="Covid-19 Celebration",
     event_flyer_img="",
-    promo_video_link="",
+    
     desc="Celebrating not having covid-19",
     number_of_guests="20",
     date_of_party="02-13-2020",
@@ -180,7 +185,7 @@ with app.app_context():
   e3 = Event(
     name_of_event="MoneyShot Promo",
     event_flyer_img="",
-    promo_video_link="",
+    
     desc="Promo for App launch",
     number_of_guests="100",
     date_of_party="09-23-2020",
@@ -190,7 +195,7 @@ with app.app_context():
   e4 = Event(
     name_of_event="Powerhouse Productions",
     event_flyer_img="",
-    promo_video_link="",
+    
     desc="Live Music: Madball, Agnostic Front, Skarhead",
     number_of_guests="300",
     date_of_party="07-13-2020",
@@ -200,7 +205,7 @@ with app.app_context():
   e5 = Event(
     name_of_event="Tommy's Graduation",
     event_flyer_img="",
-    promo_video_link="",
+    
     desc="Little Tommy graduating college",
     number_of_guests="40",
     date_of_party="05-03-2020",
@@ -210,7 +215,7 @@ with app.app_context():
   e6 = Event(
     name_of_event="Street Fighter 2 Championships",
     event_flyer_img="",
-    promo_video_link="",
+    
     desc="Arcade Tournament",
     number_of_guests="200",
     date_of_party="05-03-2020",

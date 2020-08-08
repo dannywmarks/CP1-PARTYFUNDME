@@ -4,7 +4,7 @@ from ..models import db, Bar
 from .forms import BarSignupForm
 
 
-bars = Blueprint('bars', __name__)
+bars = Blueprint('bars', __name__, template_folder='templates', static_folder='static')
 
 @bars.route("/bars/signup", methods=['GET', 'POST'])
 def signup():
@@ -34,10 +34,10 @@ def signup():
         flash('Bar created!')
         return redirect(url_for('bars.bars_list'))
 
-    return render_template('bars_signup.html', form=form)
+    return render_template('bars/bars_signup.html', form=form)
 
 @bars.route("/bars")
 def bars_list():
     
     bars = [bar.to_dict() for bar in Bar.query.all()]
-    return render_template('bars_profile.html', bars=bars)
+    return render_template('bars/bars_profile.html', bars=bars)

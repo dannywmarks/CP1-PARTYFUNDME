@@ -9,7 +9,10 @@ from flask_login import login_user
 
 
 
-oauth_blueprint = Blueprint('oauth_blueprint', __name__)
+oauth_blueprint = Blueprint('oauth_blueprint',
+                             __name__, 
+                             template_folder='templates', 
+                             static_folder='static')
 
 twitter_blueprint = make_twitter_blueprint(api_key=environ.get('TWITTER_API_KEY'), api_secret=environ.get('TWITTER_SECRET'))
 google_blueprint = make_google_blueprint(client_id=environ.get('GOOGLE_CLIENT_ID'), client_secret=environ.get('GOOGLE_SECRET'))
@@ -47,7 +50,6 @@ def twitter_logged_in(blueprint, token):
         login_user(user)
         
         
-
 @oauth_blueprint.route('/google')
 def google_login():
     if not google.authorized:
@@ -59,23 +61,3 @@ def google_login():
         return '<h1>Your google email is @{}</h1>'.format(account_info_json['user_info'])
     return '<h1>You Request Failed</h1>'
 
-# @oauth_blueprint.route("/login")
-# def login():
-#     """ Login user. Authorize routes."""
-#     google = oauth.create_client('google')
-#     redirect_uri = url_for('users.authorize', _external=True)
-#     return google.authorize_redirect(redirect_uri)
-
-
-# @oauth_blueprint.route("/authorize")
-# def authorize():
-#     google = oauth.create_client('google')  # create the google oauth client
-#     token = google.authorize_access_token()  # Access token from google (needed to get user info)
-#     resp = google.get('userinfo', token=token)  # userinfo contains stuff u specificed in the scrope
-#     user_info = resp.json()
-#     user = oauth.google.userinfo()  # uses openid endpoint to fetch user info
-#     # Here you use the profile/user data that you got and query your database find/register the user
-#     # and set ur own data in the session not the profile from google
-#     # session['profile'] = user_info
-#     # session.permanent = True  # make the session permanant so it keeps existing after broweser gets closed
-#     return redirect(url_for('bars.signup'))

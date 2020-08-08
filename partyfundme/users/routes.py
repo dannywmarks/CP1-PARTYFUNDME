@@ -10,7 +10,7 @@ from .utils import serializer
 import requests, json
 
 
-users = Blueprint('users', __name__)
+users = Blueprint('users', __name__, template_folder='templates', static_folder='static')
 
 
 
@@ -46,12 +46,13 @@ def signup():
             db.session.commit()
 
             flash('User created!')
-            return redirect(url_for('main.home'))
+            return redirect(url_for('main/main.home'))
 
         flash('User Exists!')
-    return render_template('users_signup.html', form=form)
+    return render_template('users/signup.html', form=form)
 
 
+#Confirm users email address with Flask-Mail
 @users.route('/confirm/<token>')
 def confirm_email(token):
     """ User signup confirmation using token generated on User Signup """ 
@@ -93,7 +94,7 @@ def login():
         flash('Invalid username/password combination')
         return redirect(url_for('users.login'))
     
-    return render_template('users_login.html', form=form)
+    return render_template("users/signin.html", form=form)
 
 
 

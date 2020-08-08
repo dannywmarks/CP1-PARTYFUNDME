@@ -41,16 +41,18 @@ class User(UserMixin, db.Model):
         default=False
     )
     created_on = db.Column(
-        db.DateTime,
-        index=False,
-        unique=False,
-        nullable=True
+       db.DateTime, 
+       server_default=db.func.now()
     )
     last_login = db.Column(
-        db.DateTime,
-        index=False,
-        unique=False,
-        nullable=True
+        db.DateTime, 
+        server_default=db.func.now(), 
+        server_onupdate=db.func.now()
+    )
+    events = db.relationship(
+        'Event', 
+        backref='users', 
+        lazy='dynamic'
     )
 
     # start register
@@ -172,10 +174,13 @@ class Bar(db.Model):
         nullable=True
     )
     created_on = db.Column(
-        db.DateTime,
-        index=False,
-        unique=False,
-        nullable=True
+        db.DateTime, 
+        server_default=db.func.now()
+    )
+    event = db.relationship(
+        'Event', 
+        backref='bars', 
+        lazy='dynamic'
     )
 
     # start register
@@ -214,7 +219,7 @@ class Bar(db.Model):
       # end register
 
     def __repr__(self):
-        return '<Bar {}>'.format(self.username)
+        return '<Bar {}>'.format(self.bar_name)
 
     def image_url(self):
         """Return default bar img."""
@@ -268,10 +273,13 @@ class Event(db.Model):
         nullable=False,
         default=DEFAULT_EVENT_IMAGE_URL
     )
-    promo_video_link = db.Column(
-        db.String(255),
-        nullable=False,
-        default=DEFAULT_VIDEO_URL
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey('users.id'),
+    )
+    bar_id = db.Column(
+        db.Integer,
+        db.ForeignKey('bars.id'),
     )
     desc = db.Column(
         db.String(255),
@@ -299,18 +307,17 @@ class Event(db.Model):
         nullable=False
     )
     created_on = db.Column(
-        db.DateTime,
-        index=False,
-        unique=False,
-        nullable=True
+        db.DateTime, 
+        server_default=db.func.now()
     )
+
+    # bars = db.relationship('Bar', backref='users')
 
     @classmethod
     def register(
         cls, 
         name_of_event, 
-        event_flyer_img, 
-        promo_video_link, 
+        event_flyer_img,  
         desc, 
         number_of_guests, 
         date_of_party, 
@@ -323,7 +330,6 @@ class Event(db.Model):
         return cls(
             name_of_event=name_of_event,
             event_flyer_img=event_flyer_img,
-            promo_video_link=promo_video_link,
             desc=desc,
             number_of_guests=number_of_guests,
             date_of_party=date_of_party,
@@ -340,7 +346,6 @@ class Event(db.Model):
             "name_of_event": self.name_of_event,
             "info": {
                 "event_flyer_img": self.event_flyer_img,
-                "promo_video_link": self.promo_video_link,
                 "desc": self.desc,
                 "number_of_guests": self.number_of_guests,
                 "date_of_party": self.date_of_party,
@@ -351,6 +356,9 @@ class Event(db.Model):
                 "venue": self.venue
             } 
         }
+
+    def __repr__(self):
+        return '<Event {}>'.format(self.name_of_event)
     
     
 
@@ -363,3 +371,12 @@ class EventListBars(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
     bar_id = db.Column(db.Integer, db.ForeignKey('bars.id'))
+
+
+class Image(db.Model):
+    """ Model for image to event,bar,profile """
+
+    id = db.Column(db.Integer, primary_key=True)
+    img = db.Column(db.Text, unique=True, nullable=False)
+    name = db.Column(db.Text, nullable=False)
+    mimetype = db.Column(db.Text, nullable=False)

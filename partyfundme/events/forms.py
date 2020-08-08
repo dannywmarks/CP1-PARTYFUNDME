@@ -14,10 +14,6 @@ class CreateEventForm(FlaskForm):
         'Flyer Image',
         validators=[DataRequired()]
     )
-    promo_video_link = StringField(
-        'Promo Video Link',
-        validators=[DataRequired()]
-    )
     desc = StringField(
         'Description',
         validators=[DataRequired()]

@@ -17,7 +17,7 @@ login_manager = LoginManager()
 bcrypt = Bcrypt()
 csrf = CSRFProtect()
 mail = Mail()
-flaskAdmin = Admin()
+flaskAdmin = Admin(template_mode='bootstrap3')
 
 
 def create_app():
@@ -57,7 +57,9 @@ def create_app():
     from partyfundme.events.routes import events
     from partyfundme.users.routes import users
     from partyfundme.main.routes import main
+    from partyfundme.payments.routes import payments_blueprint
     from .users.oauth import oauth_blueprint
+    
 
     twitter_blueprint = make_twitter_blueprint(api_key=environ.get('TWITTER_API_KEY'), api_secret=environ.get('TWITTER_SECRET'))
     google_blueprint = make_google_blueprint(client_id=environ.get('GOOGLE_CLIENT_ID'), client_secret=environ.get('GOOGLE_SECRET'))
@@ -72,6 +74,7 @@ def create_app():
     app.register_blueprint(users)
     app.register_blueprint(main)
     app.register_blueprint(oauth_blueprint)
+    app.register_blueprint(payments_blueprint)
     
 
     with app.app_context():

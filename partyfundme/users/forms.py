@@ -26,7 +26,7 @@ class SignupForm(FlaskForm):
         ]
     )
     password = PasswordField(
-        'Password',
+        'Create Password',
         validators=[
             DataRequired(),
             Length(min=6, message='Select a stronger password.')

@@ -1,66 +1,59 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">PartyFund Me</a>
-  
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarsExampleDefault"
-    aria-controls="navbarsExampleDefault"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/"
-          >Home <span class="sr-only">(current)</span></a
-        >
-      </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="/how-it-works">About</a>
-      </li> -->
-      <li class="nav-item">
-        <a class="nav-link" href="/events">Events</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('bars.bars_list') }}">Bars</a>
-      </li>
-      <!-- <li class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          id="dropdown01"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-          >Dashboard</a
-        >
-        <div class="dropdown-menu" aria-labelledby="dropdown01">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li> -->
-    </ul>
-
-    <ul class="navbar-nav mr-auto navbar-right">
-      <li class="nav-item">
-        <a href="{{ url_for('admin_blueprint.admin_dashboard') }}" class="nav-link">Profile</a>
-      </li>
-      <li class="nav-item">
-        <a href="{{ url_for('users.logout') }}" class="nav-link">Sign Out</a>
-      </li>
-
-      <li class="nav-item">
-        <a href="{{ url_for('users.signup') }}" class="nav-link">Register</a>
-      </li>
-      <li class="nav-item">
-        <a href="{{ url_for('users.login') }}" class="nav-link">Sign In</a>
-      </li>
-    </ul>
+<nav class="navbar navbar-expand-md navbar-light ">
+  <div class="container ">
+    <a href="{{ url_for('main.home') }}" class="navbar-brand my-2">
+      <!-- <img src="../../static/logo.svg"  width="50" heigh="50" alt=""> -->
+      <h3 class="d-inline align-middle" id="party-title">PartyFund</h3>
+    </a>
+    <div class="auto-complete"></div>
+    <button
+      class="navbar-toggler"
+      data-toggle="collapse"
+      data-target="navbarCollapse"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- <form class="form-inline">
+      <input
+        class="form-control mr-sm-2"
+        id="searchBar"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">
+        Search
+      </button>
+    </form> -->
+    
+    <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+      <ul class="navbar-nav ">
+        {% if not current_user.is_authenticated %}
+        <li class="nav-item">
+          <a href="{{ url_for('main.home') }}" class="nav-link">Events</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('main.home') }}" class="nav-link">Bars</a>
+        </li>
+       
+        <li class="nav-item">
+          <a href="{{ url_for('users.login') }}" class="nav-link" id="sign-in">Sign In</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a href="{{ url_for('main.home') }}" class="nav-link">Events</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('main.home') }}" class="nav-link">Bars</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('events.signup') }}" class="nav-link">Create Event</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('users.logout') }}" class="nav-link">Sign Out</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
   </div>
 </nav>

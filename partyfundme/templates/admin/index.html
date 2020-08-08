@@ -1,0 +1,17 @@
+{% extends 'admin/master.html' %}
+{% block head_css %}
+{{ super() }}
+<link rel='stylesheet' href="{{ url_for('static', filename='style.css') }}">
+{% endblock head_css %}
+{% block body %} 
+
+<div class="container">
+  <h2 class="text-center" id="party-title">PartyFund</h2>
+  <h3 class='text-center'>Admin Dashboard</h3>
+  <div class=" align-self-center">
+    <img src="../../static/logo.svg" alt="" id="admin-logo" class="img-fluid mx-3 my-4" />
+  </div>
+  
+</div>
+
+{% endblock %}
