@@ -2,4 +2,4 @@ venv/
 __pycahce__/
 .pytest_cache
 .env
-tests/
+
