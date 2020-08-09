@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, DateField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional
 
@@ -10,9 +11,9 @@ class CreateEventForm(FlaskForm):
         'Name of Event',
         validators=[DataRequired()]
     )
-    event_flyer_img = StringField(
-        'Flyer Image',
-        validators=[DataRequired()]
+    event_flyer_img = FileField(
+        'Add Flyer Image',
+        validators=[FileAllowed(['png','jpg','gif'])]
     )
     desc = StringField(
         'Description',
@@ -49,4 +50,7 @@ class CreateEventForm(FlaskForm):
         
         
         
+
+
+
        

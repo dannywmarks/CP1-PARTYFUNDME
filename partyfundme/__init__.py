@@ -11,7 +11,7 @@ from flask_dance.contrib.google import make_google_blueprint, google
 from os import environ
 
 
-
+app = Flask(__name__)
 db = SQLAlchemy()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
@@ -21,19 +21,27 @@ flaskAdmin = Admin(template_mode='bootstrap3')
 
 
 def create_app():
-    app = Flask(__name__, instance_relative_config=False)
+  
 
     # Application Configuration
     app.config.from_object('config.Config')
 
     # Initialize Plugins
-    db.init_app(app) #SQLALCHEMY
-    bcrypt.init_app(app) #BCRYPT
-    login_manager.init_app(app) #FLASK LOGIN
-    csrf.init_app(app) #CRSFTOKEN FOR WTFORMS
-    mail.init_app(app) #FLASK MAIL
-    flaskAdmin.init_app(app) #FLASK ADMIN
-    # oauth.init_app(app) #OAUTH 2.0
+
+    #SQLALCHEMY
+    db.init_app(app)
+    #BCRYPT 
+    bcrypt.init_app(app)
+     #FLASK LOGIN 
+    login_manager.init_app(app)
+    #CRSFTOKEN FOR WTFORMS
+    csrf.init_app(app) 
+    #FLASK MAIL
+    mail.init_app(app) 
+    #FLASK ADMIN
+    flaskAdmin.init_app(app)
+    #OAUTH 2.0
+    # oauth.init_app(app) 
 
     login_manager.login_view = "users.login"
     
@@ -76,11 +84,5 @@ def create_app():
     app.register_blueprint(oauth_blueprint)
     app.register_blueprint(payments_blueprint)
     
-
-    with app.app_context():
-    # Create Database Models
-        db.create_all()
-
-        
 
     return app

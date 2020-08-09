@@ -47,10 +47,13 @@
           <a href="{{ url_for('main.home') }}" class="nav-link">Bars</a>
         </li>
         <li class="nav-item">
-          <a href="{{ url_for('events.signup') }}" class="nav-link">Create Event</a>
+          <a href="{{ url_for('events.new_event') }}" class="nav-link">Create Event</a>
         </li>
         <li class="nav-item">
           <a href="{{ url_for('users.logout') }}" class="nav-link">Sign Out</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('users.profile') }}" class="nav-link">Profile</a>
         </li>
         {% endif %}
       </ul>

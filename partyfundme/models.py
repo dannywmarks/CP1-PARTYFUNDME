@@ -3,9 +3,12 @@ from flask_login import UserMixin, login_manager, current_user
 from flask_dance.consumer.storage.sqla import OAuthConsumerMixin, SQLAlchemyStorage
 from .users.oauth import twitter_blueprint, google_blueprint
 # pylint: disable=E1101
+
+
 DEFAULT_IMAGE_URL = '' 
 DEFAULT_EVENT_IMAGE_URL = ''
-DEFAULT_VIDEO_URL = ''
+
+
 class User(UserMixin, db.Model):
     """User account model."""
 
@@ -34,6 +37,11 @@ class User(UserMixin, db.Model):
         primary_key=False,
         unique=False,
         nullable=False
+    )
+    image_file = db.Column(
+        db.String(20),
+        nullable=False,
+        default='default-user.png'
     )
     email_confirmed = db.Column(
         db.Boolean,
@@ -145,9 +153,9 @@ class Bar(db.Model):
         nullable=False
     )
     img = db.Column(
-        db.String(150),
+        db.String(20),
         nullable=False,
-        default=DEFAULT_IMAGE_URL
+        default='default-bar.png'
     )
     desc = db.Column(
         db.String(255),
@@ -269,9 +277,9 @@ class Event(db.Model):
         unique=False
     )
     event_flyer_img = db.Column(
-        db.String(150),
+        db.String(20),
         nullable=False,
-        default=DEFAULT_EVENT_IMAGE_URL
+        default='default-event.png'
     )
     user_id = db.Column(
         db.Integer,

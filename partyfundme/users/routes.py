@@ -1,13 +1,16 @@
 # pylint: disable=E1101
 from flask import render_template, Blueprint, redirect, request, url_for, flash, abort, session
-from .forms import LoginForm, SignupForm
+from .forms import LoginForm, SignupForm, UpdateAccountForm
 from ..models import db, User
+from partyfundme import app
 from itsdangerous import SignatureExpired
 from flask_mail import Message
 from flask_login import login_required, logout_user, current_user, login_user
 from .. import mail
 from .utils import serializer
 import requests, json
+import secrets
+import os
 
 
 users = Blueprint('users', __name__, template_folder='templates', static_folder='static')
@@ -46,7 +49,7 @@ def signup():
             db.session.commit()
 
             flash('User created!')
-            return redirect(url_for('main/main.home'))
+            return redirect(url_for('main.home'))
 
         flash('User Exists!')
     return render_template('users/signup.html', form=form)
@@ -104,6 +107,50 @@ def logout():
     """User log-out logic."""
     logout_user()
     return redirect(url_for('users.login'))
+
+@users.route("/profile")
+@login_required
+def profile():
+    """User profile logic."""
+    form = UpdateAccountForm()
+
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('/users/user-profile.html', 
+                            image_file=image_file,  form=form)
+
+
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+    form_picture.save(picture_path)
+
+    return picture_fn
+
+
+@users.route("/account", methods=['GET','POST'])
+@login_required
+def edit_profile():
+    """User profile logic."""
+    form = UpdateAccountForm()
+    if request.method == 'POST':
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.image_file = picture_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('users.account'))
+
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('/users/user-edit-profile.html', 
+                            image_file=image_file,  form=form)
 
 
 

@@ -2,6 +2,7 @@ from flask import render_template, request, Blueprint, flash, redirect, url_for,
 from .forms import CreateEventForm
 from ..models import db, Event, Image
 from werkzeug.utils import secure_filename
+from partyfundme.users.utils import save_picture
 # pylint: disable=E1101
 
 
@@ -21,8 +22,8 @@ def event(event_id):
     image_file = url_for('static', filename='events/profile_pics/' + event.event_flyer_img)
     return render_template('events/events_event.html', event=event, image_file=image_file)
 
-@events.route("/events/signup", methods=['GET', 'POST'])
-def signup():
+@events.route("/events/new_event", methods=['GET', 'POST'])
+def new_event():
     form = CreateEventForm()
 
     if form.validate_on_submit():
@@ -38,6 +39,8 @@ def signup():
         desc = form.desc.data
         venue = form.venue.data
         
+        
+        print(f"{event_flyer_img}")
 
         event = Event.register(
             name_of_event, 
@@ -59,27 +62,4 @@ def signup():
     
     return render_template('events/events_signup.html', form=form)
 
-@events.route('/upload', methods=['POST'])
-def upload():
-    img = request.files['event-img']
 
-    if not img:
-        return 'No img uploaded', 400
-
-    filename = secure_filename(img.filename)
-    mimetype = img.mimetype
-
-    event_img = Image(img=img.read(), mimetype=mimetype, name=filename)
-    db.session.add(event_img)
-    db.session.commit()
-
-    return 'img has been uploaded', 200
-
-
-@events.route('/<int:id>')
-def get_img(id):
-    img = Image.query.filter_by(id=id).first()
-    if not img:
-        return 'No Img with that id', 404
-
-    return Response(img.img, mimetype=img.mimetype)
