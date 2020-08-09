@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 #PartyFundME
-=======
-# PartyFundME
->>>>>>> b0e330bf03d613c06a8fbaa5843d022aa34ae645
 **PROJECT PROPOSAL**  
 04.28.2020  
 Danny Marks   
@@ -10,11 +6,7 @@ Fdbd llc.
 
 ![moneyshot-logo](https://app.genmymodel.com/personal/projects/_8Y5hsHhtEeqeQcxm9hmzHw)
 
-<<<<<<< HEAD
 ##**Oveview**: 
-=======
-## **Oveview**: 
->>>>>>> b0e330bf03d613c06a8fbaa5843d022aa34ae645
 
 Create a Kickstarter / Go Fundme clone for the Bar and Nightlife industry. The web app would be a promotional tool to promote and pre-sell events and provide value to customers. (_During the covid19 pandemic bars and bartenders have turned to gofundme to raise money to cover losses because they have not been able to open their doors. PartyFundME would be catered specifically for bars/nightclubs to raise money but provide a platform for the bar or person throwing event to offer some value return i.e. open bars, private partys, band, dj, etc._ ) 
 
@@ -22,7 +14,6 @@ Create a Kickstarter / Go Fundme clone for the Bar and Nightlife industry. The w
 >[Shark Tank audition video](https://www.youtube.com/watch?v=gf_a_UmJkUQ&feature=youtu.be) 
 > 
  
-<<<<<<< HEAD
 MoneyShot never gained traction, but I did have  success  “crowdfunding” parties. I would throw parties for friends' birthdays at popular bars in SF.   
 >1. I would create a flyer for the party.   
 2. Post on social media circle, inviting everyone to the party but if they coudn't make it could buy a round.
@@ -30,25 +21,11 @@ MoneyShot never gained traction, but I did have  success  “crowdfunding” par
 Moneyshot would average 1000$ raised a party. The bar owners and staff were happy, party goers were happy, and most of all the person we threw the parties for were happy. 
 
 ##**Goals**: 
-=======
-MoneyShot never gained traction, but I did have  success  “crowdfunding” parties. I would throw parties for friends' birthdays at popular bars in SF.  
->1.I would create a flyer for the party.   
->2.Post on social media circle, inviting everyone to the party but if they coudn't make it could buy a round.  
->3.Used money that was "chipped in" / donated to create a tab at the bar.  
-
-Moneyshot would average 1000$ raised a party. The bar owners and staff were happy, party goers were happy, and most of all >the person we threw the parties for were happy. 
-
-## **Goals**: 
->>>>>>> b0e330bf03d613c06a8fbaa5843d022aa34ae645
  
 Build a platform that would allow bar owners and eventually users to create and crowdfund events at Bar/Nightclub establishments. 
  
 
-<<<<<<< HEAD
 ##**Specifications**
-=======
-## **Specifications**
->>>>>>> b0e330bf03d613c06a8fbaa5843d022aa34ae645
 * Sign up and create user function.   
 * Create and Manage Events 
 * View Events  
@@ -59,11 +36,7 @@ Build a platform that would allow bar owners and eventually users to create and 
 * Database Schema outline in Static Folder on GITHUB
 
 
-<<<<<<< HEAD
 ##**Technologies**  
-=======
-## **Technologies**  
->>>>>>> b0e330bf03d613c06a8fbaa5843d022aa34ae645
 * Flask
 * WTFAlchemy
 * SQLAlchemy
@@ -73,7 +46,6 @@ Build a platform that would allow bar owners and eventually users to create and 
 * Twillio (?)
 * Email Framework
 
-<<<<<<< HEAD
 ##**Milestones**
 #####<ins>**Complete MVP for Springboard Software Engineering course by 06/01**</ins>
 Production level with live funds for testing beta testing in the real world. Depending on timeline extra functions like twillio may be reserverd for V2. Basic CRUD will be created making sure proper authentication and payment handling is production level.
@@ -82,14 +54,4 @@ Production level with live funds for testing beta testing in the real world. Dep
 Lucky 13 in Alameda, Thee Parkside in San Francisco, Emperor Norton’s in San Francisco.  
 
 #####<ins>**Use app to promote live music event / end of quarantine party**</ins>
-=======
-## **Milestones**
-##### <ins>**Complete MVP for Springboard Software Engineering course by 06/01**</ins>
-Production level with live funds for testing beta testing in the real world. Depending on timeline extra functions like twillio may be reserverd for V2. Basic CRUD will be created making sure proper authentication and payment handling is production level.
-
-##### <ins>**Test MVP with bars in the bar area.**</ins> 
-Lucky 13 in Alameda, Thee Parkside in San Francisco, Emperor Norton’s in San Francisco.  
-
-##### <ins>**Use app to promote live music event / end of quarantine party**</ins>
->>>>>>> b0e330bf03d613c06a8fbaa5843d022aa34ae645
 Continue where MoneyShot left off and host the end of the quarantine party with funds raised through the app.
