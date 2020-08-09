@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "liveSassCompile.settings.excludeList": ["**/node_modules/**", ".vscode/**"],
 
   "files.exclude": {
@@ -7,3 +8,7 @@
   },
   "liveServer.settings.port": 5501
 }
+=======
+  "python.pythonPath": "venv/bin/python3"
+}
+>>>>>>> b0e330bf03d613c06a8fbaa5843d022aa34ae645
