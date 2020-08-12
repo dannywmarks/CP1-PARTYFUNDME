@@ -1,12 +1,16 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
+from wtforms.fields.html5 import DateField
 from wtforms import StringField, PasswordField, SubmitField, DateField
+from wtforms_sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional
+from partyfundme.models import Bar
 
- 
+def choice_query():
+    return Bar.query
 
 class CreateEventForm(FlaskForm):
-    """Register and Sign-up Bars Form."""
+    """Create Events Form."""
     name_of_event = StringField(
         'Name of Event',
         validators=[DataRequired()]
@@ -23,8 +27,51 @@ class CreateEventForm(FlaskForm):
         'Number of Guests',
         validators=[DataRequired()]
     )
-    date_of_party = StringField(
-        'Date of Party',
+    date_of_party = DateField('Date of Party', 
+        format='%Y-%m-%d',
+        validators=[DataRequired()]
+    )
+    target_goal = StringField(
+        'Target Goal',
+        validators=[DataRequired()]
+    )
+    total_fund = StringField(
+        'Total Fund',
+        validators=[DataRequired()
+        ]
+    )
+    desc = StringField(
+        'Description',
+        validators=[DataRequired()]
+    )
+    venue = QuerySelectField(
+        query_factory=choice_query,
+        allow_blank=True
+    )
+
+
+    
+        
+class UpdateEventForm(FlaskForm):
+    """Update Event Form."""
+    name_of_event = StringField(
+        'Name of Event',
+        validators=[DataRequired()]
+    )
+    event_flyer_img = FileField(
+        'Add Flyer Image',
+        validators=[FileAllowed(['png','jpg','gif'])]
+    )
+    desc = StringField(
+        'Description',
+        validators=[DataRequired()]
+    )
+    number_of_guests = StringField(
+        'Number of Guests',
+        validators=[DataRequired()]
+    )
+    date_of_party = DateField('Date of Party', 
+        format='%Y-%m-%d',
         validators=[DataRequired()]
     )
     target_goal = StringField(
@@ -44,11 +91,7 @@ class CreateEventForm(FlaskForm):
         'Venue',
         validators=[DataRequired()]
     )
-    
-        
-        
-        
-        
+    submit = SubmitField('Update')
         
 
 

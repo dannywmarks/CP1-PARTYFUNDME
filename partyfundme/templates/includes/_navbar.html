@@ -2,7 +2,6 @@
 <nav class="navbar navbar-expand-md navbar-light ">
   <div class="container ">
     <a href="{{ url_for('main.home') }}" class="navbar-brand my-2">
-      <!-- <img src="../../static/logo.svg"  width="50" heigh="50" alt=""> -->
       <h3 class="d-inline align-middle" id="party-title">PartyFund</h3>
     </a>
     <div class="auto-complete"></div>
@@ -13,18 +12,6 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <!-- <form class="form-inline">
-      <input
-        class="form-control mr-sm-2"
-        id="searchBar"
-        type="search"
-        placeholder="Search"
-        aria-label="Search"
-      />
-      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">
-        Search
-      </button>
-    </form> -->
     
     <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
       <ul class="navbar-nav ">
@@ -33,7 +20,7 @@
           <a href="{{ url_for('main.home') }}" class="nav-link">Events</a>
         </li>
         <li class="nav-item">
-          <a href="{{ url_for('main.home') }}" class="nav-link">Bars</a>
+          <a href="{{ url_for('bars.bars_list') }}" class="nav-link">Bars</a>
         </li>
        
         <li class="nav-item">
@@ -44,16 +31,21 @@
           <a href="{{ url_for('main.home') }}" class="nav-link">Events</a>
         </li>
         <li class="nav-item">
-          <a href="{{ url_for('main.home') }}" class="nav-link">Bars</a>
+          <a href="{{ url_for('bars.bars_list') }}" class="nav-link">Bars</a>
         </li>
-        <li class="nav-item">
-          <a href="{{ url_for('events.new_event') }}" class="nav-link">Create Event</a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ url_for('users.logout') }}" class="nav-link">Sign Out</a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ url_for('users.profile') }}" class="nav-link">Profile</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img class="mx-2" src="../../static/profile_pics/{{current_user.image_file}}"  width="50" height="50" alt="">
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{ url_for('users.profile') }}">Profile</a>
+            <a class="dropdown-item" href="{{ url_for('users.profile') }}">Account</a>
+            <a class="dropdown-item" href="#">My Events</a>
+            <a class="dropdown-item" href="{{ url_for('events.new_event') }}" >Create Event</a>
+            <div class="dropdown-divider"></div>
+            
+            <a class="dropdown-item" href="{{ url_for('users.logout') }}" >Sign Out</a>
+          </div>
         </li>
         {% endif %}
       </ul>

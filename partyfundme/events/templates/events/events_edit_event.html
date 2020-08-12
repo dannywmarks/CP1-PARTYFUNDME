@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+
+
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ image_file }}">
+        <div class="media-body">
+          <h2 class="account-heading">{{ event.name_of_event }}</h2>
+          <p class="text-secondary">{{ event.desc }}</p>
+        </div>
+      </div>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Account Info</legend>
+                <div class="form-group">
+                    {{ form.name_of_event.label(class="form-control-label") }}
+
+                    {% if form.name_of_event.errors %}
+                        {{ form.name_of_event(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.name_of_event.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.name_of_event(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.desc.label(class="form-control-label") }}
+                    {% if form.desc.errors %}
+                        {{ form.desc(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.desc.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.desc(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.event_flyer_img.label() }}
+                    {{ form.event_flyer_img(class="form-control-file") }}
+                    {% if form.event_flyer_img.errors %}
+                        {% for error in form.event_flyer_img.errors %}
+                            <span class="text-danger">{{ error }}</span></br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+  </div>
+{% endblock content %}

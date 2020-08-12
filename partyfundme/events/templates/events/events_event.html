@@ -1,86 +1,80 @@
 {% extends 'layout.html' %} {% block content %}
+<a href="{{url_for('events.update_event', event_id=event.id)}}"><button class="btn btn-primary btn-lg btn-block">Edit Event</button></a>
+  
+
 <div class="event-main">
+  
+  
   <div class="container">
     <div class="row">
-      <div class="col-md-8">
-        <div class="card">
+      {% for bar in event.bars %}
+      <div class="col-md-6">
+        
+        <div class="card" id="big-poster">
+          
           <img
-            src="{{ event.event_flyer_img }}"
+            src="{{ event_poster }}"
             class="img-fluid"
             id="poster"
             alt=""
           />
           
           <div class="card-body">
-            <h1 class="text-center">{{event.name_of_event}}</h1>
-            <hr>
-           <h6>
-            {{event.desc}}
-           </h6> 
-            
+            <div class="container" >
+              <a class="btn btn-lg btn-primary btn-block" id="buy_now_btn" href="{{url_for('payments_blueprint.stripe_payment')}}">Buy Ticket</a>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-       
-        <div class="card">
-          <img src="../static/bar3.jpg" alt="" />
+      <div class="col-md-6">
         
-        <div class="card-body">
-          
-          <h4>{{ event.venue }}</h4>
-          <h6>
-            {{ event.Bar}}
-          </h6>
-          <hr>
-          <h6>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae
-            excepturi quibusdam ab mollitia odit repudiandae? Lorem ipsum
-            dolor, sit amet consectetur adipisicing elit. Vitae excepturi
-            quibusdam ab mollitia odit repudiandae? Lorem ipsum dolor, sit
-            amet consectetur adipisicing elit. Vitae excepturi quibusdam ab
-            mollitia odit repudiandae?
-          </h6>
-          <hr>
-          <div class="container text-center">
-            <a type="button" class="btn-floating btn-fb btn-sm">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a type="button" class="btn-floating btn-tw btn-sm">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a type="button" class="btn-floating btn-li btn-sm">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a type="button" class="btn-floating btn-git btn-sm">
-              <i class="fab fa-github"></i>
-            </a>
-          </div>
-          
-        </div>
-
-      </div>
-    
       <div class="card">
         <div class="card-header">
-          <h2>$1000 or $2000</h2>
+          <h2 class="text-center">{{event.name_of_event}}</h2>
         </div>
         <div class="card-body">
           <h4>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae
-            excepturi quibusdam ab mollitia odit repudiandae?
+            {{event.desc}}
           </h4>
          
-          <div class="container" >
-            <a class="btn btn-lg btn-primary btn-block" id="buy_now_btn" href="{{url_for('payments_blueprint.stripe_payment')}}">Ticket</a>
-          </div>
+          
         </div>
         
       </div>
-        
+      <div class="container bcontent">
+        <h2>Location</h2>
+        <hr />
+        <div class="card" style="width: 500px;">
+            <div class="row no-gutters">
+                <div class="col-sm-5">
+                    <img class="card-img" src="../static/bar3.jpg" alt="Suresh Dasari Card">
+                </div>
+                <div class="col-sm-7">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ bar.bar_name }}</h5>
+                        <p class="card-text">Tenderloin</p>
+                        <div class="container text-center">
+                          <a type="button" class="btn-floating btn-fb btn-sm">
+                            <i class="fab fa-facebook-f"></i>
+                          </a>
+                          <a type="button" class="btn-floating btn-tw btn-sm">
+                            <i class="fab fa-twitter"></i>
+                          </a>
+                          <a type="button" class="btn-floating btn-li btn-sm">
+                            <i class="fab fa-linkedin-in"></i>
+                          </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      
       </div>
 
     </div>
+    {% endfor %}
+    
   </div>
 </div>
 

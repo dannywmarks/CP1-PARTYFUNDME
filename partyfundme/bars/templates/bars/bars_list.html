@@ -3,35 +3,35 @@
 {% block content %}
 
 <section class="container mt-4 mb-4">
-  <h1 class="text-center"><a href="{{ url_for('bars.signup') }}">Register A Bar</a></h1>
-  <div class="container">
-    {% for bar in bars %}
-    <div class="container">
+  <h1 class="text-center mb-5"><a href="{{ url_for('bars.signup') }}">Partner Bars</a></h1>
+  
+    {% for bar in bars.items %}
+    <div class="container d-flex justify-content-center my-2">
       <div class="row mb-3">
-        <div class="col-md-12">
-          <div class="d-flex flex-row border rounded">
-              <div class="p-0 w-25">
-                  <img src="https://c1.staticflickr.com/3/2862/12328317524_18e52b5972_k.jpg" class="img-thumbnail border-0" />
-                
+        <div class="card" style="width: 500px;">
+          <div class="row no-gutters">
+              <div class="col-sm-5">
+                  <img class="card-img" src="../static/bar3.jpg" alt="Suresh Dasari Card">
               </div>
-              <div class="pl-3 pt-2 pr-2 pb-2 w-75 border-left">
-                  <h3 class="text-primary">{{bar.bar_name}}</h3>
-                  <h6 class="text-info">Desc</h6>
-                  <h6 class="text-info"><a href="#">Website</a></h6>
-                  <h6 class="text-info">Address</h6>
-                  <h6 class="text-info">State</h6>
-                  <h6 class="text-info">Country</h6>
-                  
-                  
-                  <ul class="m-0 float-left" style="list-style: none; margin:0; padding: 0">
-                    <li><i class="fab fa-facebook-square"></i> Facebook</li>
-                    <li><i class="fab fa-twitter-square"></i> Twitter</li>
-                    <li><i class="fab fa-instagram"></i> Instagram</li>
-                  </ul>
-                <p class="text-right m-0"><a href="#" class="btn btn-primary"><i class="far fa-user"></i> View Profile</a></p>
-            </div>
+              <div class="col-sm-7">
+                  <div class="card-body">
+                      <h5 class="card-title">{{ bar.bar_name }}</h5>
+                      <p class="card-text">Tenderloin</p>
+                      <div class="container text-center">
+                        <a type="button" class="btn-floating btn-fb btn-sm">
+                          <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a type="button" class="btn-floating btn-tw btn-sm">
+                          <i class="fab fa-twitter"></i>
+                        </a>
+                        <a type="button" class="btn-floating btn-li btn-sm">
+                          <i class="fab fa-linkedin-in"></i>
+                        </a>
+                      </div>
+                  </div>
+              </div>
           </div>
-        </div>
+      </div>
         
     
     </div>
@@ -40,6 +40,19 @@
 
 
 {% endfor %}
+<div class="container d-flex justify-content-center ">
+{% for page_num in bars.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2)%}
+  {%if page_num %}  
+      {% if bars.page == page_num %}
+      <a class="btn btn-primary mx-1 mb-4" href="{{ url_for('bars.bars_list', page=page_num)}}">{{page_num}}</a>
+      {%else%}
+      <a class="btn btn-outline-primary mx-1 mb-4" href="{{ url_for('bars.bars_list', page=page_num)}}">{{page_num}}</a>
+      {%endif%}
+    {%else%}
+    ...
+  {%endif%}
+{% endfor %}
+</div>
 </section>
 
  

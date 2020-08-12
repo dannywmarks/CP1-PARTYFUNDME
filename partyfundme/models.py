@@ -4,64 +4,32 @@ from flask_dance.consumer.storage.sqla import OAuthConsumerMixin, SQLAlchemyStor
 from .users.oauth import twitter_blueprint, google_blueprint
 # pylint: disable=E1101
 
+DEFAULT_IMAGE_URL = ""
 
-DEFAULT_IMAGE_URL = '' 
-DEFAULT_EVENT_IMAGE_URL = ''
+class EventList(db.Model):
+    __tablename__ = 'eventlist_bars'
+
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'),primary_key=True)
+    bar_id = db.Column(db.Integer, db.ForeignKey('bars.id'),primary_key=True)
+    
+
 
 
 class User(UserMixin, db.Model):
     """User account model."""
 
     __tablename__ = 'users'
-    id = db.Column(
-        db.Integer,
-        primary_key=True
-    )
-    name = db.Column(
-        db.String(100),
-        nullable=False,
-        unique=False
-    )
-    email = db.Column(
-        db.String(40),
-        unique=True,
-        nullable=False
-    )
-    username = db.Column(
-        db.String(100),
-        nullable=False,
-        unique=True
-    )
-    password = db.Column(
-        db.String(200),
-        primary_key=False,
-        unique=False,
-        nullable=False
-    )
-    image_file = db.Column(
-        db.String(20),
-        nullable=False,
-        default='default-user.png'
-    )
-    email_confirmed = db.Column(
-        db.Boolean,
-        nullable=False,
-        default=False
-    )
-    created_on = db.Column(
-       db.DateTime, 
-       server_default=db.func.now()
-    )
-    last_login = db.Column(
-        db.DateTime, 
-        server_default=db.func.now(), 
-        server_onupdate=db.func.now()
-    )
-    events = db.relationship(
-        'Event', 
-        backref='users', 
-        lazy='dynamic'
-    )
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column( db.String(100),nullable=False,unique=False)
+    email = db.Column(db.String(40),unique=True,nullable=False)
+    username = db.Column(db.String(100),nullable=False,unique=True )
+    password = db.Column(db.String(200),primary_key=False,unique=False, nullable=False)
+    image_file = db.Column(db.String(20),nullable=False, default='default-user.png')
+    email_confirmed = db.Column(db.Boolean,nullable=False,default=False)
+    created_on = db.Column(db.DateTime, server_default=db.func.now())
+    last_login = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+    
+    event = db.relationship('Event', backref='user', lazy='dynamic')
 
     # start register
     @classmethod
@@ -110,86 +78,24 @@ class Bar(db.Model):
 
     __tablename__ = 'bars'
 
-    id = db.Column(
-        db.Integer, 
-        primary_key=True, 
-        autoincrement=True
-    )
-    bar_name = db.Column(
-        db.String(100), 
-        nullable=False, 
-        unique=False
-    )
-    address = db.Column(
-        db.String(100), 
-        nullable=False, 
-        unique=True
-    )
-    city = db.Column(
-        db.String(50),
-        nullable=False
-    )
-    state = db.Column(
-        db.String(50), 
-        nullable=False
-    )
-    country = db.Column(
-        db.String(25), 
-        nullable=False
-    )
-    email = db.Column(
-        db.String(40),
-        unique=True,
-        nullable=False
-    )
-    email_confirmed = db.Column(
-        db.Boolean,
-        nullable=False,
-        default=False
-    )
-    phone = db.Column(
-        db.String(50),
-        unique=True,
-        nullable=False
-    )
-    img = db.Column(
-        db.String(20),
-        nullable=False,
-        default='default-bar.png'
-    )
-    desc = db.Column(
-        db.String(255),
-        nullable=True
-    )
-    website = db.Column(
-        db.String(150),
-        unique=True,
-        nullable = True
-    )
-    facebook = db.Column(
-        db.String(150),
-        unique=True,
-        nullable=True
-    )
-    instagram = db.Column(
-        db.String(150),
-        unique=True,
-        nullable=True
-    )
-    twitter = db.Column(
-        db.String(150),
-        unique=True,
-        nullable=True
-    )
-    created_on = db.Column(
-        db.DateTime, 
-        server_default=db.func.now()
-    )
-    event = db.relationship(
-        'Event', 
-        backref='bars', 
-        lazy='dynamic'
-    )
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    bar_name = db.Column(db.String(100),nullable=False, unique=False)
+    address = db.Column(db.String(100), nullable=False, unique=True)
+    city = db.Column(db.String(50),nullable=False)
+    state = db.Column(db.String(50),nullable=False )
+    country = db.Column(db.String(25), nullable=False)
+    email = db.Column(db.String(40),unique=True,nullable=False)
+    email_confirmed = db.Column(db.Boolean,nullable=False,default=False )
+    phone = db.Column(db.String(50),unique=True,nullable=False)
+    img = db.Column(db.String(255),nullable=False,default='default-bar.png')
+    desc = db.Column( db.String(255),nullable=True)
+    website = db.Column(db.String(150),unique=True,nullable = True)
+    facebook = db.Column(db.String(150),unique=True,nullable=True)
+    instagram = db.Column(db.String(150),unique=True,nullable=True)
+    twitter = db.Column(db.String(150),unique=True,nullable=True)
+    created_on = db.Column(db.DateTime, server_default=db.func.now())
+    
+    events = db.relationship('Event', secondary="eventlist_bars", backref="bars")
 
     # start register
     @classmethod
@@ -266,60 +172,19 @@ class Event(db.Model):
     __tablename__ = 'events'
 
 
-    id = db.Column(
-        db.Integer, 
-        primary_key=True, 
-        autoincrement=True
-    )
-    name_of_event = db.Column(
-        db.String(100), 
-        nullable=False, 
-        unique=False
-    )
-    event_flyer_img = db.Column(
-        db.String(20),
-        nullable=False,
-        default='default-event.png'
-    )
-    user_id = db.Column(
-        db.Integer,
-        db.ForeignKey('users.id'),
-    )
-    bar_id = db.Column(
-        db.Integer,
-        db.ForeignKey('bars.id'),
-    )
-    desc = db.Column(
-        db.String(255),
-        nullable=False
-    )
-    number_of_guests = db.Column(
-        db.String(50),
-        nullable=False
-    )
-    date_of_party = db.Column(
-        db.String(50),
-        nullable=False
-    )
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name_of_event = db.Column(db.String(100), nullable=False, unique=False)
+    event_flyer_img = db.Column(db.String(255),nullable=False,default='default-event.png')
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'), nullable="False")
+    desc = db.Column(db.String(255),nullable=False)
+    number_of_guests = db.Column(db.String(50),nullable=False)
+    date_of_party = db.Column(db.String(50))# nullable=False
     # DATECREATED TIME STAMP
-    target_goal = db.Column(
-        db.String(50),
-        nullable=False
-    )
-    total_fund = db.Column(
-        db.String(50),
-        nullable=False
-    )
-    venue = db.Column(
-        db.String(50),
-        nullable=False
-    )
-    created_on = db.Column(
-        db.DateTime, 
-        server_default=db.func.now()
-    )
+    target_goal = db.Column(db.String(50),nullable=False)
+    total_fund = db.Column(db.String(50),nullable=False)
+    created_on = db.Column(db.DateTime, server_default=db.func.now())
 
-    # bars = db.relationship('Bar', backref='users')
+    # partners = db.relationship('Bar', secondaryjoin=eventMap, backref=db.backref('bars', lazy="dynamic"))
 
     @classmethod
     def register(
@@ -331,7 +196,6 @@ class Event(db.Model):
         date_of_party, 
         target_goal, 
         total_fund,  
-        venue, 
     ):
 
         # return instance of bar
@@ -343,7 +207,6 @@ class Event(db.Model):
             date_of_party=date_of_party,
             target_goal=target_goal,
             total_fund=total_fund,
-            venue=venue
         )
     
     def to_dict(self):
@@ -359,10 +222,10 @@ class Event(db.Model):
                 "date_of_party": self.date_of_party,
                 "target_goal": self.target_goal,
                 "total_fund": self.total_fund
-            },
-            "location": {
-                "venue": self.venue
-            } 
+            }
+            # "location": {
+            #     "venue": self.venue
+            # } 
         }
 
     def __repr__(self):
@@ -370,21 +233,16 @@ class Event(db.Model):
     
     
 
-class EventListBars(db.Model):
-    """Mapping of a event to a bar."""
-
-    # ADD THE NECESSARY CODE HERE
-    __tablename__ = 'eventlist_bars'
-
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
-    bar_id = db.Column(db.Integer, db.ForeignKey('bars.id'))
 
 
-class Image(db.Model):
-    """ Model for image to event,bar,profile """
+    
 
-    id = db.Column(db.Integer, primary_key=True)
-    img = db.Column(db.Text, unique=True, nullable=False)
-    name = db.Column(db.Text, nullable=False)
-    mimetype = db.Column(db.Text, nullable=False)
+
+# May revisit how images are handled for scaling issues
+# class Image(db.Model):
+#     """ Model for image to event,bar,profile """
+
+#     id = db.Column(db.Integer, primary_key=True)
+#     img = db.Column(db.Text, unique=True, nullable=False)
+#     name = db.Column(db.Text, nullable=False)
+#     mimetype = db.Column(db.Text, nullable=False)

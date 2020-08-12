@@ -38,6 +38,8 @@ def signup():
 
 @bars.route("/bars")
 def bars_list():
-    
-    bars = [bar.to_dict() for bar in Bar.query.all()]
-    return render_template('bars/bars_profile.html', bars=bars)
+
+    page = request.args.get('page',1, type=int)
+    bars = Bar.query.paginate(page=page, per_page=3)
+
+    return render_template('bars/bars_list.html', bars=bars)

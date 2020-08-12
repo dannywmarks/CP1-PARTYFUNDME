@@ -1,6 +1,6 @@
 from flask import render_template, request, Blueprint, flash, redirect, url_for, Response
-from .forms import CreateEventForm
-from ..models import db, Event, Image
+from .forms import CreateEventForm, UpdateEventForm
+from ..models import db, Event
 from werkzeug.utils import secure_filename
 from partyfundme.users.utils import save_picture
 # pylint: disable=E1101
@@ -16,21 +16,60 @@ def events_list():
     events = [event.to_dict() for event in Event.query.all()]
     return render_template('events/events_list.html', events=events)
 
+
+
 @events.route("/events/<int:event_id>")
 def event(event_id):
     event = Event.query.get_or_404(event_id)
-    image_file = url_for('static', filename='events/profile_pics/' + event.event_flyer_img)
-    return render_template('events/events_event.html', event=event, image_file=image_file)
+    event.event_flyer_img = url_for('static', filename='profile_pics/' + event.event_flyer_img)
+    event_poster = event.event_flyer_img
+    return render_template('events/events_event.html', event=event, event_poster=event_poster )
+
+@events.route("/events/<int:event_id>/update", methods=['GET', 'POST'])
+def update_event(event_id):
+
+    form = UpdateEventForm()
+    event = Event.query.get_or_404(event_id)
+
+    if request.method == 'POST':
+        if form.event_flyer_img.data:
+           picture_file = save_picture(form.event_flyer_img.data)
+           event.event_flyer_img = picture_file
+        event.name_of_event = form.name_of_event.data
+        event.number_of_guests = form.number_of_guests.data
+        event.date_of_party = form.date_of_party.data
+        event.target_goal = form.target_goal.data
+        event.total_fund = form.total_fund.data
+        event.desc = form.desc.data
+        db.session.commit()
+        flash('Your Event has been updated!', 'success')
+        return redirect(url_for('events.update_event', event_id=event.id))
+
+    elif request.method == 'GET':
+        
+        form.name_of_event.data = event.name_of_event
+        form.number_of_guests.data = event.number_of_guests
+        form.date_of_party.data = event.date_of_party
+        form.target_goal.data = event.target_goal
+        form.total_fund.data = event.total_fund
+        form.desc.data = event.desc
+        
+
+    image_file = url_for('static', filename='profile_pics/' + event.event_flyer_img)
+    return render_template('events/events_edit_event.html', event=event, image_file=image_file, form=form)
+
 
 @events.route("/events/new_event", methods=['GET', 'POST'])
 def new_event():
     form = CreateEventForm()
 
-    if form.validate_on_submit():
-
+    if request.method == 'POST':
         
+        if form.event_flyer_img.data:
+           picture_file = save_picture(form.event_flyer_img.data)
+           
+        event_flyer_img = picture_file
         name_of_event = form.name_of_event.data
-        event_flyer_img = form.event_flyer_img.data
         desc = form.desc.data
         number_of_guests = form.number_of_guests.data
         date_of_party = form.date_of_party.data
@@ -38,9 +77,7 @@ def new_event():
         total_fund = form.total_fund.data
         desc = form.desc.data
         venue = form.venue.data
-        
-        
-        print(f"{event_flyer_img}")
+       
 
         event = Event.register(
             name_of_event, 
@@ -50,8 +87,9 @@ def new_event():
             date_of_party, 
             target_goal, 
             total_fund,  
-            venue,
             )
+
+        event.bars.append(venue)
        
         db.session.add(event)
         db.session.commit()
@@ -63,3 +101,7 @@ def new_event():
     return render_template('events/events_signup.html', form=form)
 
 
+
+
+    
+                        
