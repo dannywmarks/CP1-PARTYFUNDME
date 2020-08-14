@@ -19,9 +19,9 @@
   <body >
     {% include 'includes/_navbar.html' %} {% include 'includes/_messages.html'
     %}
-    <!-- {% for category, message in messages %}
+    {% for category, message in messages %}
     <div class="alert alert-{{ category }}">{{ message }}</div>
-    {% endfor %} -->
+    {% endfor %}
     
     {% block content %}{% endblock %}
 
@@ -33,7 +33,10 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="../static/searchEvent.js"></script>
+    <script src="../static/stripe.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
     <script>
       $('#recipeCarousel').carousel({
         interval: 10000

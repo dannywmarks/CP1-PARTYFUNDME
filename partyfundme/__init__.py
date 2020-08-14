@@ -67,7 +67,7 @@ def create_app():
     from partyfundme.main.routes import main
     from partyfundme.payments.routes import payments_blueprint
     from .users.oauth import oauth_blueprint
-    
+    from .mail.routes import mail_blueprint
 
     twitter_blueprint = make_twitter_blueprint(api_key=environ.get('TWITTER_API_KEY'), api_secret=environ.get('TWITTER_SECRET'))
     google_blueprint = make_google_blueprint(client_id=environ.get('GOOGLE_CLIENT_ID'), client_secret=environ.get('GOOGLE_SECRET'))
@@ -83,6 +83,7 @@ def create_app():
     app.register_blueprint(main)
     app.register_blueprint(oauth_blueprint)
     app.register_blueprint(payments_blueprint)
+    app.register_blueprint(mail_blueprint)
     
 
     return app

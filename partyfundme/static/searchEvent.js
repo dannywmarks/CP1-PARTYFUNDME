@@ -22,7 +22,7 @@ root.innerHTML = `
   aria-label="Search"
 />
 <div class="dropdown ">
-  <div>
+  <div class="dropdown-menu" id="event-dropdown">
       <div class="dropdown-content results"></div>
   </div>
 </div>

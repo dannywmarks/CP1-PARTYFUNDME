@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms.fields.html5 import DateField
-from wtforms import StringField, PasswordField, SubmitField, DateField
+from wtforms import StringField, PasswordField, SubmitField, DateField,TextAreaField
 from wtforms_sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional
 from partyfundme.models import Bar
@@ -19,9 +19,9 @@ class CreateEventForm(FlaskForm):
         'Add Flyer Image',
         validators=[FileAllowed(['png','jpg','gif'])]
     )
-    desc = StringField(
+    desc = TextAreaField(
         'Description',
-        validators=[DataRequired()]
+        validators=[DataRequired(),Length(max=255)]
     )
     number_of_guests = StringField(
         'Number of Guests',

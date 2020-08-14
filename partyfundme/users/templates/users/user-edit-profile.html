@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="container">
+<div class="container border-dotted">
 
 
     <div class="content-section">
@@ -12,6 +12,7 @@
         </div>
       </div>
         <form method="POST" action="" enctype="multipart/form-data">
+
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Account Info</legend>
@@ -53,8 +54,14 @@
                 </div>
             </fieldset>
             <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
+                
+                {{ form.submit(class="btn btn-lg btn-outline-primary") }}
+                <button class="btn btn-lg btn-outline-danger"
+                formaction="{{ url_for('users.profile' )}}"
+                formmethod="GET">Back
+                 </button>
             </div>
+           
         </form>
     </div>
   </div>

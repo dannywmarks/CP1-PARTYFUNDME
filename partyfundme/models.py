@@ -24,7 +24,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(40),unique=True,nullable=False)
     username = db.Column(db.String(100),nullable=False,unique=True )
     password = db.Column(db.String(200),primary_key=False,unique=False, nullable=False)
-    image_file = db.Column(db.String(20),nullable=False, default='default-user.png')
+    image_file = db.Column(db.String(255),nullable=False, default='default-user.png')
     email_confirmed = db.Column(db.Boolean,nullable=False,default=False)
     created_on = db.Column(db.DateTime, server_default=db.func.now())
     last_login = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
@@ -88,6 +88,7 @@ class Bar(db.Model):
     email_confirmed = db.Column(db.Boolean,nullable=False,default=False )
     phone = db.Column(db.String(50),unique=True,nullable=False)
     img = db.Column(db.String(255),nullable=False,default='default-bar.png')
+    img_header = db.Column(db.String(255),nullable=False,default='default-header-bar.png')
     desc = db.Column( db.String(255),nullable=True)
     website = db.Column(db.String(150),unique=True,nullable = True)
     facebook = db.Column(db.String(150),unique=True,nullable=True)
@@ -108,7 +109,8 @@ class Bar(db.Model):
         country, 
         email, 
         phone, 
-        img, 
+        img,
+        img_header, 
         desc, 
         website, 
         facebook, 
@@ -125,6 +127,7 @@ class Bar(db.Model):
             email=email,
             phone=phone,
             img=img,
+            img_header=img_header,
             desc=desc,
             website=website,
             facebook=facebook,
@@ -184,8 +187,7 @@ class Event(db.Model):
     total_fund = db.Column(db.String(50),nullable=False)
     created_on = db.Column(db.DateTime, server_default=db.func.now())
 
-    # partners = db.relationship('Bar', secondaryjoin=eventMap, backref=db.backref('bars', lazy="dynamic"))
-
+    
     @classmethod
     def register(
         cls, 
@@ -237,12 +239,3 @@ class Event(db.Model):
 
     
 
-
-# May revisit how images are handled for scaling issues
-# class Image(db.Model):
-#     """ Model for image to event,bar,profile """
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     img = db.Column(db.Text, unique=True, nullable=False)
-#     name = db.Column(db.Text, nullable=False)
-#     mimetype = db.Column(db.Text, nullable=False)

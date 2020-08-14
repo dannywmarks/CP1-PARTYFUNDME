@@ -1,82 +1,93 @@
 {% extends 'layout.html' %} {% block content %}
-<a href="{{url_for('events.update_event', event_id=event.id)}}"><button class="btn btn-primary btn-lg btn-block">Edit Event</button></a>
-  
 
-<div class="event-main">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='events.css') }}"/>
+
+
+
+ 
   
   
-  <div class="container">
-    <div class="row">
-      {% for bar in event.bars %}
-      <div class="col-md-6">
-        
-        <div class="card" id="big-poster">
-          
-          <img
-            src="{{ event_poster }}"
-            class="img-fluid"
-            id="poster"
-            alt=""
-          />
-          
-          <div class="card-body">
-            <div class="container" >
-              <a class="btn btn-lg btn-primary btn-block" id="buy_now_btn" href="{{url_for('payments_blueprint.stripe_payment')}}">Buy Ticket</a>
-            </div>
+    <div class="container">
+      <div class="row">
+        {% for bar in event.bars %}
+
+        <div class="container">
+          <div class="fb-profile">
+              <img align="left" class="fb-image-lg" src="../../../static/bars-theeparkside-header.png" alt="Profile Header"/>
+              <img align="left" class="fb-image-profile thumbnail" src="{{ event_poster }}" alt="Profile side image "/>
+              
+              <div class="fb-profile-text">
+              <div class="row">
+                <div class="card-body">
+                  <div class="container" >
+                    
+                    <a class="btn btn-block btn-primary " id="buy_now_btn" href="{{url_for('payments_blueprint.stripe_payment')}}">Buy Ticket</a>
+                  
+                  </div>
+                </div>
+                <div class="container col-m6">
+                  <div class="container">
+                    <div class="container border-dotted mt-3 ">
+                      <h1 class="text-center mt-2">{{event.name_of_event}}</h1>
+                      <h5 class="text-center">About this event:</h5>
+                      <p class="text-center">{{event.desc}}</p>
+                    
+                    
+                    <h5 class="text-center">Date & Time:</h5>
+                    <p class="text-center">{{event.date_of_party}}</p>
+                    </div>
+                    <div class="container border-dotted my-3">
+                      <h6 class="text-center mt-2">Location:</h6>
+                      <h3 class="text-center">{{bar.bar_name}} </h3>
+                      <div class="container ">
+                        <p class="text-center">{{bar.address}}<br>
+                          {{bar.city}}
+                          {{bar.state}}<br>
+                          {{bar.email}}<br>
+                          <a href="http://{{bar.website}}">{{bar.website}}</a>
+                        </p>
+                      </div>
+                      
+                     
+                    </div>
+                  
+                    <div class="container border-dotted mb-3 ">
+                      <div class="container  ">
+                        <h1 class="text-center">{{event.user.username}}</h1>
+                        <div class="container imageCenterAlign">
+                          <img class="image-center center-block" src="../../../static/profile_pics/{{event.user.image_file}}" alt="">
+                        </div>
+                        
+                        <h4 class="text-center">Contact host: {{event.user.email}}</h4>
+                      </div>
+                      
+                     </div>
+                    
+                  
+
+                  
+                
+                </div>
+              </div>
+             
+
+                
+                
+              </div>
+            
           </div>
         </div>
-      </div>
-      <div class="col-md-6">
-        
-      <div class="card">
-        <div class="card-header">
-          <h2 class="text-center">{{event.name_of_event}}</h2>
-        </div>
-        <div class="card-body">
-          <h4>
-            {{event.desc}}
-          </h4>
-         
-          
-        </div>
-        
-      </div>
-      <div class="container bcontent">
-        <h2>Location</h2>
-        <hr />
-        <div class="card" style="width: 500px;">
-            <div class="row no-gutters">
-                <div class="col-sm-5">
-                    <img class="card-img" src="../static/bar3.jpg" alt="Suresh Dasari Card">
-                </div>
-                <div class="col-sm-7">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ bar.bar_name }}</h5>
-                        <p class="card-text">Tenderloin</p>
-                        <div class="container text-center">
-                          <a type="button" class="btn-floating btn-fb btn-sm">
-                            <i class="fab fa-facebook-f"></i>
-                          </a>
-                          <a type="button" class="btn-floating btn-tw btn-sm">
-                            <i class="fab fa-twitter"></i>
-                          </a>
-                          <a type="button" class="btn-floating btn-li btn-sm">
-                            <i class="fab fa-linkedin-in"></i>
-                          </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-      
-      </div>
 
-    </div>
-    {% endfor %}
+
+    
+       
+  
+      </div>
+      {% endfor %}
+      
     
   </div>
-</div>
 
 
 

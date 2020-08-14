@@ -10,6 +10,10 @@
   font-family: 'ananda';
 }
 
+.border-dotted{
+  border-style: dotted !important;
+ }
+
 
 
 .navbar {
@@ -614,3 +618,7 @@ img {
     text-transform: uppercase;
   }
   
+  #event-dropdown{
+    position: absolute !important;
+    z-index: 9999 !important;
+  }

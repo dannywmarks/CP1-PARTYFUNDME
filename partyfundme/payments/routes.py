@@ -27,7 +27,7 @@ def stripe_payment():
 
 @payments_blueprint.route('/thanks')
 def thanks():
-    return render_template('payments/thanks.html')
+    return render_template('payments/ticket.html')
 
 @payments_blueprint.route('/stripe_webhook', methods=['POST'])
 def stripe_webhook():

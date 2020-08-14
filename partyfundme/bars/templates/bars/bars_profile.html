@@ -1,8 +1,19 @@
 {% extends 'layout.html' %}
 
+
 {% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='bars.css') }}"/>
 
-
+<div class="container">
+  <div class="fb-profile">
+      <img align="left" class="fb-image-lg" src="../../../static/bars-theeparkside-header.png" alt="Profile Header"/>
+      <img align="left" class="fb-image-profile thumbnail" src="../../../static/bar1.jpg" alt="Profile side image "/>
+      <div class="fb-profile-text">
+          <h1>{{bar.id}}</h1>
+          <p>{{bar.desc}}</p>
+      </div>
+  </div>
+</div> <!-- /container -->  
 
  
 {% endblock %}

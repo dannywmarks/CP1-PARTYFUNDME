@@ -1,14 +1,26 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<div class="container">
-    <div class="content-section">
+<div class="container border-dotted">
+    <div class="content-section ">
       <div class="media">
         <img class="rounded-circle account-img" src="{{ image_file }}">
         <div class="media-body">
           <h2 class="account-heading">{{ current_user.username }}</h2>
           <p class="text-secondary">{{ current_user.email }}</p>
-          <a href="{{ url_for('users.edit_profile' )}}"><div class="btn btn-block btn-outline-info">Edit Profile</div></a> </div>
+          <form>
+            <button class="btn btn-outline-primary btn-lg"
+                    formaction="{{ url_for('users.edit_profile' )}}"
+                    formmethod="GET">Edit
+            </button>
+            <button class="btn btn-outline-danger btn-lg"
+                    formaction="{{ url_for('users.edit_profile' )}}"
+                    formmethod="POST">Delete
+            </button>
+          </form>
+         
+          </div>
+        </div>
         </div>
       </div>
        

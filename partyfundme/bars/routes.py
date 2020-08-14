@@ -43,3 +43,11 @@ def bars_list():
     bars = Bar.query.paginate(page=page, per_page=3)
 
     return render_template('bars/bars_list.html', bars=bars)
+
+@bars.route("/bars/<int:bar_id>")
+def bars_profile(bar_id):
+
+    bar = Bar.query.get_or_404(bar_id)
+   
+
+    return render_template('bars/bars_profile.html', bar=bar)

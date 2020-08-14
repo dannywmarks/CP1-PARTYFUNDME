@@ -9,7 +9,8 @@
             <h5 class="card-title text-center">Sign In</h5>
            
             <form method="POST">
-              {{ form.hidden_tag() }} {% for field in form if
+              {{ form.hidden_tag() }} 
+              {% for field in form if
               field.widget.input_type != 'hidden' %}
               <p class="lead">
                 {{ field.label }} {{ field(class_="form-control") }} {% for

@@ -7,7 +7,7 @@ from itsdangerous import SignatureExpired
 from flask_mail import Message
 from flask_login import login_required, logout_user, current_user, login_user
 from .. import mail
-from .utils import serializer
+from partyfundme.utils import serializer, save_picture
 import requests, json
 import secrets
 import os
@@ -118,22 +118,12 @@ def profile():
     return render_template('/users/user-profile.html', 
                             image_file=image_file,  form=form)
 
-
-def save_picture(form_picture):
-    random_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(form_picture.filename)
-    picture_fn = random_hex + f_ext
-    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
-    form_picture.save(picture_path)
-
-    return picture_fn
-
-
 @users.route("/account", methods=['GET','POST'])
 @login_required
 def edit_profile():
     """User profile logic."""
     form = UpdateAccountForm()
+
     if request.method == 'POST':
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
@@ -153,15 +143,15 @@ def edit_profile():
                             image_file=image_file,  form=form)
 
 
+@users.route("/profile/<int:user_id>/delete", methods=["POST"])
+@login_required
+def delete_profile(user_id):
+    
+    user = User.query.get_or_404(user_id)
+    db.session.delete(user)
+    db.session.commit()
+    flash("User Account Deleted.")
 
+    return redirect("/")
 
-# @users.route("/test")
-# def email_test():
-
-#     msg = Message(subject="Hello",
-#                       sender='dannywmarks@gmail.com',
-#                       recipients=["dannydamage@me.com"], # replace with your email for testing
-#                       body="This is a test email I sent with Gmail and Python!")
-#     mail.send(msg)
-#     return "Email sent"
 

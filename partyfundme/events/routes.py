@@ -2,7 +2,7 @@ from flask import render_template, request, Blueprint, flash, redirect, url_for,
 from .forms import CreateEventForm, UpdateEventForm
 from ..models import db, Event
 from werkzeug.utils import secure_filename
-from partyfundme.users.utils import save_picture
+from partyfundme.utils import save_picture
 # pylint: disable=E1101
 
 
