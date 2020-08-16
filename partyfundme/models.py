@@ -176,13 +176,13 @@ class Event(db.Model):
 
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name_of_event = db.Column(db.String(100), nullable=False, unique=False)
+    name_of_event = db.Column(db.String(22), nullable=False, unique=False)
     event_flyer_img = db.Column(db.String(255),nullable=False,default='default-event.png')
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'), nullable="False")
     desc = db.Column(db.String(255),nullable=False)
     number_of_guests = db.Column(db.String(50),nullable=False)
     date_of_party = db.Column(db.String(50))# nullable=False
-    # DATECREATED TIME STAMP
+    time_of_party = db.Column(db.String(50))
     target_goal = db.Column(db.String(50),nullable=False)
     total_fund = db.Column(db.String(50),nullable=False)
     created_on = db.Column(db.DateTime, server_default=db.func.now())
@@ -195,7 +195,8 @@ class Event(db.Model):
         event_flyer_img,  
         desc, 
         number_of_guests, 
-        date_of_party, 
+        date_of_party,
+        time_of_party, 
         target_goal, 
         total_fund,  
     ):
@@ -207,6 +208,7 @@ class Event(db.Model):
             desc=desc,
             number_of_guests=number_of_guests,
             date_of_party=date_of_party,
+            time_of_party=time_of_party,
             target_goal=target_goal,
             total_fund=total_fund,
         )
@@ -222,6 +224,7 @@ class Event(db.Model):
                 "desc": self.desc,
                 "number_of_guests": self.number_of_guests,
                 "date_of_party": self.date_of_party,
+                "time_of_party": self.time_of_party,
                 "target_goal": self.target_goal,
                 "total_fund": self.total_fund
             }

@@ -1,0 +1,81 @@
+{% extends 'layout.html' %} {% block content %}
+
+
+
+<div class="container border-dotted">
+  <div class="content-section ">
+    <div class="media">
+      <img class="rounded-circle account-img" src="../../../static/profile_pics/{{user.image_file}} ">
+      <div class="media-body">
+        <h2 class="account-heading">{{ user.username }}</h2>
+        <p class="text-secondary">{{ user.email }}</p>
+      </div>
+      </div>
+ </div>
+
+        
+<div class="container">
+  <div class="row">
+    {%for event in user.event%}
+    <div class="col-md-4">
+      
+      <div class="card">
+        <a class="img-card" href="/events/{{ event.id }}">
+          <img src="{{ event.event_flyer_img }}" class="img-fluid mb-5" />
+        </a>
+        <br />
+        <div class="event-content">
+          <div class="event-content-header">
+            <form class="mb-2">
+              <button class="btn btn-outline-primary btn-lg"
+                      formaction="{{ url_for('users.edit_profile' )}}"
+                      formmethod="GET">Edit
+              </button>
+              <button class="btn btn-outline-danger btn-lg"
+                      formaction="{{ url_for('users.edit_profile' )}}"
+                      formmethod="POST">Delete
+              </button>
+            </form>
+            <a href="#">
+              <h3 class="event-title">{{event.name_of_event}}</h3>
+            </a>
+            <div class="ms-logo"></div>
+          </div>
+          <div class="event-info">
+            <div class="info-section">
+              <label>Date & Time</label>
+              <span>{{event.date_of_party}}</span>
+              <span>{{event.time_of_party}}</span>
+            </div><!--date,time-->
+           
+            <div class="info-section">
+              <label>Hosted By</label>
+              <span>{{user.username}}</span>
+            </div><!--row-->
+            <div class="info-section">
+              <label>Goal</label>
+              <span>{{event.total_fund}}</span>
+            </div><!--seat-->
+          </div>
+        </div>
+       
+       
+      </div>
+     
+    </div>
+    {%endfor%}
+  </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+       
+     
+
+
+{% endblock %}

@@ -69,45 +69,47 @@
     <h1 class="m-4 text-center">Upcoming Events</h1>
     <div class="row">
       {% for event in events %}
-
-      <div class="col-md-4">
-        <div class="card">
+      {% for bar in event.bars %}
+      <div class="col-md-4 d-flex">
+        <div class="card flex-fill">
           <a class="img-card" href="/events/{{ event.id }}">
             <img src="{{ event.event_flyer_img }}" class="img-fluid mb-5" />
           </a>
           <br />
-          <div class="container ">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="container ">
-                 
-                    <div class="col">
-                      <p>Date</p>
-                      <p>Time</p>
-                    </div>
-                    <div class="col">
-                      
-                    </div>
-                 
-                </div>
-               
-                
-              </div>
-              <div class="col-md-6 ticket">
-                <img src="../static/ticket.png" class="img-fluid mx-auto d-block" id="ticket" />
-              </div>
+          <div class="event-content">
+            <div class="event-content-header">
+              <a href="#">
+                <h3 class="event-title">{{event.name_of_event}}</h3>
+              </a>
+              <div class="ms-logo"></div>
+            </div>
+            <div class="event-info">
+              <div class="info-section">
+                <label>Date & Time</label>
+                <span>{{event.date_of_party}}</span>
+                <span>{{event.time_of_party}}</span>
+              </div><!--date,time-->
+              <div class="info-section">
+                <label>Location</label>
+                <span>{{bar.bar_name}}</span>
+              </div><!--screen-->
+              <div class="info-section">
+                <label>Bar Tab Raised</label>
+                <span>{{event.total_fund}}</span>
+              </div><!--row-->
+              <div class="info-section">
+                <label>Goal</label>
+                <span>{{event.total_fund}}</span>
+              </div><!--seat-->
             </div>
           </div>
 
-          <div class="card-read-more">
-            <a class="btn btn-link btn-block" href="http://www.fostrap.com/">
-              Read More
-            </a>
-          </div>
+        
         </div>
       </div>
 
       <!-- end of card-->
+      {% endfor %}
       {% endfor %}
     </div>
   </div>
@@ -147,8 +149,8 @@
           <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
               <div class="carousel-inner w-100" role="listbox">
                 <div class="carousel-item active">
-                  <div class="col-lg-3 col-md-6">
-                    <div class="card">
+                  <div class="col-lg-3 col-md-6 col-sm-12 d-flex">
+                    <div class="card flex-fill">
                       <div class="card-body">
                         <img
                           src="../static/bar1.jpg"
@@ -184,8 +186,8 @@
                 </div>
                 {% for bar in bars %}
                 <div class="carousel-item">
-                  <div class="col-lg-3 col-md-6">
-                    <div class="card">
+                  <div class="col-lg-3 col-md-6 col-sm-12 d-flex">
+                    <div class="card flex-fill">
                       <div class="card-body">
                         <img
                           src="../static/bar1.jpg"
@@ -195,22 +197,21 @@
                         <h3>{{ bar.bar_name }}</h3>
                         <h5 class="text-muted">{{ bar.address }}</h5>
                         <p>
-                          Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                          Doloribus, qui. Voluptas voluptatum nisi sed officiis?
+                          {{ bar.desc }}
                         </p>
                         <div class="d-flex justify-content">
                           <div class="p-4">
-                            <a href="http://facebook.com"
+                            <a href='{{ bar.facebook }}'
                               ><i class="fab fa-facebook"></i>
                             </a>
                           </div>
                           <div class="p-4">
-                            <a href="http://fadcebook.com"
+                            <a href="{{ bar.instagram }}"
                               ><i class="fab fa-twitter"></i>
                             </a>
                           </div>
                           <div class="p-4">
-                            <a href="http://fadcebook.com"
+                            <a href="{{ bar.twitter }}"
                               ><i class="fab fa-instagram"></i>
                             </a>
                           </div>

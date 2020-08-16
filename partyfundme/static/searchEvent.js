@@ -12,21 +12,22 @@ const loadEvents = async () => {
 
 const root = document.querySelector(".auto-complete");
 root.innerHTML = `
-<form class="img-dropdown ">
+
 
 <input
   class="form-control mr-sm-2 input ml-3"
   id="searchBar"
-  type="search"
-  placeholder="Search"
+  
+  placeholder="Search Event Name"
   aria-label="Search"
+  data-toggle="dropdown"
 />
 <div class="dropdown ">
   <div class="dropdown-menu" id="event-dropdown">
-      <div class="dropdown-content results"></div>
+      <div class="results"></div>
   </div>
 </div>
-</form>
+
 
 
 `;
@@ -34,8 +35,8 @@ root.innerHTML = `
 const input = document.querySelector(".input");
 const dropdown = document.querySelector(".dropdown");
 const resultsWrapper = document.querySelector(".results");
-const posterIntoSignup = document.getElementById("poster-div");
-const signupBTN = document.getElementById("sign-in");
+
+
 
 dropdown.classList.add("is-active");
 

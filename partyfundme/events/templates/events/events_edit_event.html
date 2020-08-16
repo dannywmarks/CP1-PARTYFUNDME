@@ -1,61 +1,88 @@
-{% extends "layout.html" %}
-{% block content %}
-<div class="container">
+{% extends 'layout.html' %} {% block content %}
 
-
-    <div class="content-section">
-      <div class="media">
-        <img class="rounded-circle account-img" src="{{ image_file }}">
-        <div class="media-body">
-          <h2 class="account-heading">{{ event.name_of_event }}</h2>
-          <p class="text-secondary">{{ event.desc }}</p>
+<<div class="container ">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="container border-dotted ">
+        <div class="container">
+        <div class="media mt-3 ml-3">
+          <img class="account-img img-fluid" src="../../../static/profile_pics/{{current_user.image_file}}">
+          
+          <div class="media-body">
+            <h2 class="account-heading">Party Host: {{ current_user.username }}</h2>
+            <p class="text-secondary">{{ current_user.email }}</p>
+          </div>
         </div>
-      </div>
-        <form method="POST" action="" enctype="multipart/form-data">
-            {{ form.hidden_tag() }}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Account Info</legend>
-                <div class="form-group">
-                    {{ form.name_of_event.label(class="form-control-label") }}
-
-                    {% if form.name_of_event.errors %}
-                        {{ form.name_of_event(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.name_of_event.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.name_of_event(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.desc.label(class="form-control-label") }}
-                    {% if form.desc.errors %}
-                        {{ form.desc(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.desc.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.desc(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.event_flyer_img.label() }}
-                    {{ form.event_flyer_img(class="form-control-file") }}
-                    {% if form.event_flyer_img.errors %}
-                        {% for error in form.event_flyer_img.errors %}
-                            <span class="text-danger">{{ error }}</span></br>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-            </fieldset>
-            <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+        <form method="POST" action="{{ url_for('events.new_event') }}" enctype="multipart/form-data">
+          {% from "includes/_formhelpers.html" import render_field %}
+          {{ form.csrf_token }}
+          
+          <div class="form-group">
+            {{render_field(form.name_of_event, class_="form-control")}}
+          </div>
+        
+          <div class="form-group">
+            
+            {{render_field(form.desc, class_="form-control")}}
+          </div>
+          <div class="form-group">
+            {{render_field(form.venue, class_="form-control")}}
+          </div>
+          <div class="form-group">
+            {{ form.event_flyer_img.label() }}
+            {{ form.event_flyer_img(class="form-control-file") }}
+            {% if form.event_flyer_img.errors %}
+                {% for error in form.event_flyer_img.errors %}
+                    <span class="text-danger">{{ error }}</span></br>
+                {% endfor %}
+            {% endif %}
+        </div>
+          <div class="container">
+            <div class="row">
+              <div class="form-group col-md-6">
+                {{render_field(form.date_of_party, class_="form-control")}}
+              </div>
+              <div class="form-group col-md-6">
+                {{render_field(form.time_of_party, class_="form-control")}}
+              </div>
             </div>
+          </div>
+        
+          <div class="form-group">
+            {{render_field(form.number_of_guests, class_="form-control")}}
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6 form-group
+              ">
+              {{render_field(form.target_goal, class_="form-control")}}
+              </div>
+              <div class="col-md-6 form-group">
+                {{render_field(form.total_fund, class_="form-control")}}
+              </div>
+            </div>
+          </div>
+          
+         
+      
+          <p><input type="submit" class="btn btn-primary btn-block" value="Updatet" /></p>
         </form>
+      </div>
     </div>
+    <div class="col-md-6">
+     
+        
+      <img class="img-fluid event-default-poster" src="../../../static/book.png">
+
+      
+           
+    </div>
+      </form>
   </div>
-{% endblock content %}
+ 
+  
+  
+  
+</div>
+{% endblock %}

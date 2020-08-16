@@ -11,7 +11,7 @@ from flask_dance.contrib.google import make_google_blueprint, google
 from os import environ
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', template_folder='templates')
 db = SQLAlchemy()
 login_manager = LoginManager()
 bcrypt = Bcrypt()

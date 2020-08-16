@@ -171,60 +171,60 @@ with app.app_context():
   e1 = Event(
     name_of_event="Daniel's Birthday",
     event_flyer_img="",
-    
     desc="Daniel's Bday Party",
     number_of_guests="50",
     date_of_party="05-03-2020",
+    time_of_party="9:00",
     target_goal="$1500",
     total_fund="$55",
     )
   e2 = Event(
     name_of_event="Covid-19 Celebration",
     event_flyer_img="",
-    
     desc="Celebrating not having covid-19",
     number_of_guests="20",
     date_of_party="02-13-2020",
+    time_of_party="9:00",
     target_goal="$500",
     total_fund="$20",
     )
   e3 = Event(
     name_of_event="MoneyShot Promo",
     event_flyer_img="",
-    
     desc="Promo for App launch",
     number_of_guests="100",
     date_of_party="09-23-2020",
+    time_of_party="9:00",
     target_goal="$2500",
     total_fund="$3000",
     )
   e4 = Event(
     name_of_event="Powerhouse Productions",
     event_flyer_img="",
-    
     desc="Live Music: Madball, Agnostic Front, Skarhead",
     number_of_guests="300",
     date_of_party="07-13-2020",
+    time_of_party="9:00",
     target_goal="$2000",
     total_fund="$2500",
     )
   e5 = Event(
     name_of_event="Tommy's Graduation",
     event_flyer_img="",
-    
     desc="Little Tommy graduating college",
     number_of_guests="40",
     date_of_party="05-03-2020",
+    time_of_party="9:00",
     target_goal="$1000",
     total_fund="$200",
     )
   e6 = Event(
-    name_of_event="Street Fighter 2 Championships",
+    name_of_event="Arcade Tournamet",
     event_flyer_img="",
-    
     desc="Arcade Tournament",
     number_of_guests="200",
     date_of_party="05-03-2020",
+    time_of_party="9:00",
     target_goal="$5000",
     total_fund="$3300",
     )

@@ -11,9 +11,9 @@ main = Blueprint('main', __name__, template_folder='templates', static_folder='s
 # @login_required
 def home():
     
-    form = EmailForm
+    form = EmailForm()
     bars = Bar.query.all()
-    events = Event.query.all()
+    events = Event.query.order_by(Event.id.desc()).limit(6).all()
     
     for event in events:
         image_file = url_for('static', filename='profile_pics/' + event.event_flyer_img)

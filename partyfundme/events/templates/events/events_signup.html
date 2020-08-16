@@ -16,18 +16,9 @@
         </div>
         </div>
         <form method="POST" action="{{ url_for('events.new_event') }}" enctype="multipart/form-data">
-          {{ form.csrf_token }}
-          <div class="form-group">
-          
           {% from "includes/_formhelpers.html" import render_field %}
-            {{ form.event_flyer_img.label() }}
-            {{ form.event_flyer_img(class="form-control-file") }}
-            {% if form.event_flyer_img.errors %}
-                {% for error in form.event_flyer_img.errors %}
-                    <span class="text-danger">{{ error }}</span></br>
-                {% endfor %}
-            {% endif %}
-          </div>
+          {{ form.csrf_token }}
+          
           <div class="form-group">
             {{render_field(form.name_of_event, class_="form-control")}}
           </div>
@@ -37,29 +28,58 @@
             {{render_field(form.desc, class_="form-control")}}
           </div>
           <div class="form-group">
-            {{render_field(form.number_of_guests, class_="form-control")}}
-          </div>
-          <div class="form-group">
-            {{render_field(form.date_of_party, class_="form-control")}}
-          </div>
-          <div class="form-group">
-            {{render_field(form.target_goal, class_="form-control")}}
-          </div>
-          <div class="form-group">
-            {{render_field(form.total_fund, class_="form-control")}}
-          </div>
-          <div class="form-group">
             {{render_field(form.venue, class_="form-control")}}
           </div>
+          <div class="form-group">
+            {{ form.event_flyer_img.label() }}
+            {{ form.event_flyer_img(class="form-control-file") }}
+            {% if form.event_flyer_img.errors %}
+                {% for error in form.event_flyer_img.errors %}
+                    <span class="text-danger">{{ error }}</span></br>
+                {% endfor %}
+            {% endif %}
+        </div>
+          <div class="container">
+            <div class="row">
+              <div class="form-group col-md-6">
+                {{render_field(form.date_of_party, class_="form-control")}}
+              </div>
+              <div class="form-group col-md-6">
+                {{render_field(form.time_of_party, class_="form-control")}}
+              </div>
+            </div>
+          </div>
+        
+          <div class="form-group">
+            {{render_field(form.number_of_guests, class_="form-control")}}
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6 form-group
+              ">
+              {{render_field(form.target_goal, class_="form-control")}}
+              </div>
+              <div class="col-md-6 form-group">
+                {{render_field(form.total_fund, class_="form-control")}}
+              </div>
+            </div>
+          </div>
+          
+         
       
-          <p><input type="submit" class="btn btn-primary" value="Submit" /></p>
+          <p><input type="submit" class="btn btn-primary btn-block" value="Create Event" /></p>
         </form>
       </div>
     </div>
     <div class="col-md-6">
+     
+        
       <img class="img-fluid event-default-poster" src="../../../static/book.png">
+
+      
+           
     </div>
-    
+      </form>
   </div>
  
   
