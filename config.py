@@ -24,7 +24,11 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USE_SSL: False
 
+    # FLASK-ASSETS
+
     # STATIC-ASSETS
+    STATIC_FOLDER = 'static'
+    TEMPLATES_FOLDER = 'templates'
 
     # DATABASE
     SQLALCHEMY_DATABASE_URI = environ.get('SQLALCHEMY_DATABASE_URI')

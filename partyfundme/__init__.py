@@ -1,23 +1,44 @@
-from flask import Flask
+from flask import Flask, session, redirect, request, url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin
-from flask_admin import Admin
+from flask_login import LoginManager, UserMixin,current_user
+from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 from flask_mail import Mail, Message
 from flask_bcrypt import Bcrypt
 from flask_wtf.csrf import CSRFProtect
+from flask_assets import Environment, Bundle
 from flask_dance.contrib.twitter import make_twitter_blueprint, twitter
 from flask_dance.contrib.google import make_google_blueprint, google
 from os import environ
 
+class AdminView(ModelView):
 
-app = Flask(__name__, static_folder='static', template_folder='templates')
+    def is_accessible(self):
+        return session.get('user') == 'Administrator'
+
+    def inaccessible_callback(self, name, **kwargs):
+        if not self.is_accessible():
+            return redirect(url_for('main.home', next=request.url))
+
+class MyAdminIndexView(AdminIndexView):
+    def is_accessible(self):
+        return current_user.is_authenticated
+
+    def inaccessible_callback(self, name, **kwargs):
+        if not self.is_accessible():
+            return redirect(url_for('main.home', next=request.url))
+
+
+app = Flask(__name__)
+assets = Environment()
 db = SQLAlchemy()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
 csrf = CSRFProtect()
 mail = Mail()
-flaskAdmin = Admin(template_mode='bootstrap3')
+flaskAdmin = Admin(template_mode='bootstrap3', index_view=MyAdminIndexView())
+
+
 
 
 def create_app():
@@ -41,7 +62,9 @@ def create_app():
     #FLASK ADMIN
     flaskAdmin.init_app(app)
     #OAUTH 2.0
-    # oauth.init_app(app) 
+    # oauth.init_app(app)
+    #FLASK ASSETS
+    assets.init_app(app)
 
     login_manager.login_view = "users.login"
     
@@ -56,7 +79,15 @@ def create_app():
         return User.query.get(user_id)
       return None
     
+    #Asset Bundles
 
+    js = Bundle('js/barsProfile.js', 'js/searchEvent.js','js/stripe.js', output='main.js')
+
+    css = Bundle('style.css', 'events.css','bars.css', output='main.css')
+
+    #Register Assets
+    assets.register('main_js', js)
+    assets.register('main_css', css)
 
     # Register Blueprint Routes
     from partyfundme.admin.routes import admin_blueprint

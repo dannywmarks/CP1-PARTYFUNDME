@@ -2,6 +2,7 @@ from . import db, bcrypt
 from flask_login import UserMixin, login_manager, current_user
 from flask_dance.consumer.storage.sqla import OAuthConsumerMixin, SQLAlchemyStorage
 from .users.oauth import twitter_blueprint, google_blueprint
+from flask_admin.contrib.sqla import ModelView
 # pylint: disable=E1101
 
 DEFAULT_IMAGE_URL = ""
@@ -60,7 +61,10 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
-
+#### CLASS TO MODIFTY ADMIN ACCCESSIBILITY ####
+class MyModelView(ModelView):
+    def is_accessible(self):
+        return current_user.is_authenticated
 
 class OAuth(OAuthConsumerMixin, db.Model):
     """ Flask Dance OAUTH table """

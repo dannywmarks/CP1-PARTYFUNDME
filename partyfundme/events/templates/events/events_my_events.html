@@ -7,8 +7,8 @@
     <div class="media">
       <img class="rounded-circle account-img" src="../../../static/profile_pics/{{user.image_file}} ">
       <div class="media-body">
-        <h2 class="account-heading">{{ user.username }}</h2>
-        <p class="text-secondary">{{ user.email }}</p>
+        <h2 class="account-heading mx-3">{{ user.username }}</h2>
+        <p class="text-secondary mx-3">{{ user.email }}</p>
       </div>
       </div>
  </div>
@@ -17,9 +17,9 @@
 <div class="container">
   <div class="row">
     {%for event in user.event%}
-    <div class="col-md-4">
+    <div class="col-md-4 d-flex">
       
-      <div class="card">
+      <div class="card flex-fill">
         <a class="img-card" href="/events/{{ event.id }}">
           <img src="{{ event.event_flyer_img }}" class="img-fluid mb-5" />
         </a>

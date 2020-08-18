@@ -7,26 +7,22 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 text-center">
-          <h1 class="display-2 mt-5 pt-5">
-            SUPPORT YOUR SCENE!
+          <h1 id="showcase-title" class="display-2 mt-5 pt-5">
+            SUPPORT OUR LOCAL SCENES!
           </h1>
           <p class="lead">
             Your local bars and live music venues need you! Book a party, or fund a party now, and support your local scene!
           </p>
-          <a href="" class="btn btn-outline-secondary btn-lg text-white">
-            <i class="fas fa-arrow-right">Read More</i>
+          <a href="{{url_for('main.about')}}" class="btn btn-outline-secondary btn-lg text-white">
+            <i class="fas fa-arrow-right"> Mission Statment</i>
           </a>
         </div>
         <div class="col-lg-6" id="poster-div">
-        
-       
             <img
               src="../static/book.png"
               alt=""
               class="img-fluid d-none d-lg-block"
             />
-         
-          
         </div>
       </div>
     </div>
@@ -187,12 +183,13 @@
                 {% for bar in bars %}
                 <div class="carousel-item">
                   <div class="col-lg-3 col-md-6 col-sm-12 d-flex">
-                    <div class="card flex-fill">
+                    <div class="card flex-fill" >
                       <div class="card-body">
                         <img
                           src="../static/bar1.jpg"
                           alt=""
                           class="img-fluid rounded-circle w-50 mb-3"
+                          id="authors"
                         />
                         <h3>{{ bar.bar_name }}</h3>
                         <h5 class="text-muted">{{ bar.address }}</h5>
@@ -302,7 +299,7 @@
   <div class="container">
     <div class="row text-center">
       <div class="col-md-6 ml-auto">
-        <p class="lead">Copyright &copy; <span id="year"></span></p>
+        <p class="lead">Copyright Partyfund &copy; <span id="year"></span></p>
       </div>
     </div>
   </div>

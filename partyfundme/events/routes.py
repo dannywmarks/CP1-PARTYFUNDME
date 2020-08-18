@@ -43,8 +43,8 @@ def update_event(event_id):
            event.event_flyer_img = picture_file
         event.name_of_event = form.name_of_event.data
         event.number_of_guests = form.number_of_guests.data
-        event.date_of_party = form.date_of_party.data
-        event.time_of_party = form.time_of_party.data
+        # event.date_of_party = form.date_of_party.data
+        # event.time_of_party = form.time_of_party.data
         event.target_goal = form.target_goal.data
         event.total_fund = form.total_fund.data
         event.desc = form.desc.data
@@ -56,8 +56,8 @@ def update_event(event_id):
         
         form.name_of_event.data = event.name_of_event
         form.number_of_guests.data = event.number_of_guests
-        form.date_of_party.data = event.date_of_party
-        form.time_of_party.data = event.time_of_party
+        # form.date_of_party.data = event.date_of_party
+        # form.time_of_party.data = event.time_of_party
         form.target_goal.data = event.target_goal
         form.total_fund.data = event.total_fund
         form.desc.data = event.desc
