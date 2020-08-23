@@ -4,7 +4,7 @@
     <a href="{{ url_for('main.home') }}" class="navbar-brand my-2">
       <h3 class="d-inline align-middle" id="party-title">PartyFund</h3>
     </a>
-    <div class="auto-complete"></div>
+    <!-- <div class="auto-complete"></div> -->
     <button
       class="navbar-toggler"
       data-toggle="collapse"
@@ -28,7 +28,7 @@
         </li>
         {% else %}
         <li class="nav-item">
-          <a href="{{ url_for('main.home') }}" class="nav-link">Events</a>
+          <a href="{{ url_for('events.events_list') }}" class="nav-link">Events</a>
         </li>
         <li class="nav-item">
           <a href="{{ url_for('bars.bars_list') }}" class="nav-link">Bars</a>

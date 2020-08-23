@@ -4,7 +4,7 @@
 
 <div class="container border-dotted">
   <div class="content-section ">
-    <div class="media">
+    <div class="media m-3">
       <img class="rounded-circle account-img" src="../../../static/profile_pics/{{user.image_file}} ">
       <div class="media-body">
         <h2 class="account-heading mx-3">{{ user.username }}</h2>
@@ -21,14 +21,14 @@
       
       <div class="card flex-fill">
         <a class="img-card" href="/events/{{ event.id }}">
-          <img src="{{ event.event_flyer_img }}" class="img-fluid mb-5" />
+          <img src="../../../static/profile_pics/{{ event.event_flyer_img }}" class="img-fluid mb-5" />
         </a>
         <br />
         <div class="event-content">
           <div class="event-content-header">
             <form class="mb-2">
               <button class="btn btn-outline-primary btn-lg"
-                      formaction="{{ url_for('users.edit_profile' )}}"
+                      formaction="{{ url_for('events.update_event', event_id=event.id )}}"
                       formmethod="GET">Edit
               </button>
               <button class="btn btn-outline-danger btn-lg"
@@ -64,6 +64,10 @@
      
     </div>
     {%endfor%}
+  </div>
+  <hr>
+  <div class="container text-center">
+    <h1>Attending</h1>
   </div>
   </div>
 </div>

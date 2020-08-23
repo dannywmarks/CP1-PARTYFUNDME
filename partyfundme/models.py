@@ -1,19 +1,39 @@
 from . import db, bcrypt
-from flask_login import UserMixin, login_manager, current_user
+from flask_login import UserMixin, current_user, LoginManager
 from flask_dance.consumer.storage.sqla import OAuthConsumerMixin, SQLAlchemyStorage
 from .users.oauth import twitter_blueprint, google_blueprint
 from flask_admin.contrib.sqla import ModelView
-# pylint: disable=E1101
 
-DEFAULT_IMAGE_URL = ""
+#pylint: disable=E1101
+
+
 
 class EventList(db.Model):
+    "Joining table for Event and selected bar where event takes place"
     __tablename__ = 'eventlist_bars'
 
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'),primary_key=True)
     bar_id = db.Column(db.Integer, db.ForeignKey('bars.id'),primary_key=True)
     
+    
+class Rsvp(db.Model):
+    """Mapping user rsvp to Events."""
 
+    __tablename__ = 'rsvps'
+    id = db.Column(
+        db.Integer,
+        primary_key=True
+    )
+
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey('users.id', ondelete='cascade')
+    )
+
+    event_id = db.Column(
+        db.Integer,
+        db.ForeignKey('events.id', ondelete='cascade'),
+    )
 
 
 class User(UserMixin, db.Model):
@@ -27,8 +47,10 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(200),primary_key=False,unique=False, nullable=False)
     image_file = db.Column(db.String(255),nullable=False, default='default-user.png')
     email_confirmed = db.Column(db.Boolean,nullable=False,default=False)
+    mailing_list = db.Column(db.Boolean,nullable=False,default=False)
     created_on = db.Column(db.DateTime, server_default=db.func.now())
     last_login = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+    
     
     event = db.relationship('Event', backref='user', lazy='dynamic')
 
@@ -100,7 +122,7 @@ class Bar(db.Model):
     twitter = db.Column(db.String(150),unique=True,nullable=True)
     created_on = db.Column(db.DateTime, server_default=db.func.now())
     
-    events = db.relationship('Event', secondary="eventlist_bars", backref="bars")
+    events = db.relationship('Event', uselist=False, secondary="eventlist_bars", backref="bars")
 
     # start register
     @classmethod
@@ -145,7 +167,7 @@ class Bar(db.Model):
     def image_url(self):
         """Return default bar img."""
 
-        return self.image or DEFAULT_IMAGE_URL
+        return self.image 
     
     def to_dict(self):
         """Serialize Bar to a dict of Bar info."""
@@ -191,12 +213,14 @@ class Event(db.Model):
     total_fund = db.Column(db.String(50),nullable=False)
     created_on = db.Column(db.DateTime, server_default=db.func.now())
 
+    rsvps = db.relationship('User', secondary="rsvps")
     
     @classmethod
     def register(
         cls, 
         name_of_event, 
-        event_flyer_img,  
+        event_flyer_img,
+        user_id,  
         desc, 
         number_of_guests, 
         date_of_party,
@@ -209,6 +233,7 @@ class Event(db.Model):
         return cls(
             name_of_event=name_of_event,
             event_flyer_img=event_flyer_img,
+            user_id=user_id,
             desc=desc,
             number_of_guests=number_of_guests,
             date_of_party=date_of_party,
@@ -231,9 +256,9 @@ class Event(db.Model):
                 "time_of_party": self.time_of_party,
                 "target_goal": self.target_goal,
                 "total_fund": self.total_fund
-            }
+            },
             # "location": {
-            #     "venue": self.venue
+            #     "venue": self.user.id
             # } 
         }
 

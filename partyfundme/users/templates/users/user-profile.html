@@ -3,17 +3,17 @@
 
 <div class="container border-dotted">
     <div class="content-section ">
-      <div class="media">
+      <div class="media m-3">
         <img class="rounded-circle account-img mb-3" src="{{ image_file }}">
-        <div class="media-body">
+        <div class="media-body m-3">
           <h2 class="account-heading mx-3">{{ current_user.username }}</h2>
           <p class="text-secondary mx-3">{{ current_user.email }}</p>
           <form>
-            <button class="btn btn-outline-primary btn-lg"
+            <button class="btn btn-outline-primary btn-lg ml-3 "
                     formaction="{{ url_for('users.edit_profile' )}}"
                     formmethod="GET">Edit
             </button>
-            <button class="btn btn-outline-danger btn-lg"
+            <button class="btn btn-outline-danger btn-lg "
                     formaction="{{ url_for('users.edit_profile' )}}"
                     formmethod="POST">Delete
             </button>

@@ -23,6 +23,11 @@
   align-items: center;
 }
 
+.event-default-poster {
+  height: 840px;
+  width: 100%;
+}
+
 
 @media (max-width:768px)
 {

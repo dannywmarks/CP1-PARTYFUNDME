@@ -31,6 +31,8 @@
 
 <!-- NEWSLETTER -->
 <section id="newsletter" class="bg-dark text white py-5">
+  <form method="POST" action="{{url_for('mail_blueprint.mailing_list')}}">
+    {{ form.hidden_tag() }} 
   <div class="container">
     <div class="row">
       <div class="col-md-4">
@@ -48,12 +50,13 @@
         />
       </div>
       <div class="col-md-4">
-        <button class="btn btn-primary btn-lg btn-block">
+        <button type="submit" class="btn btn-primary btn-lg btn-block">
           <i class="fas fa-envelope-o">Subscribe</i>
         </button>
       </div>
     </div>
   </div>
+</form>
 </section>
 
 
@@ -249,7 +252,7 @@
         <p class="lead">
           Send a message below and we will reach out to verify venue. 
         </p>
-        <form>
+        <form method="POST" action="{{url_for('mail_blueprint.mailing_list')}}">
           <div class="input-group input-group-lg mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text">

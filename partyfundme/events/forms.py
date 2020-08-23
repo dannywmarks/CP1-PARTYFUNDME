@@ -95,9 +95,9 @@ class UpdateEventForm(FlaskForm):
         'Description',
         validators=[DataRequired()]
     )
-    venue = StringField(
-        'Venue',
-        validators=[DataRequired()]
+    venue = QuerySelectField(
+        query_factory=choice_query,
+        allow_blank=True
     )
     submit = SubmitField('Update')
         

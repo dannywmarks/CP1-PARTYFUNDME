@@ -10,13 +10,13 @@
   
     <div class="container">
       <div class="row">
-        {% for bar in event.bars %}
+        
 
         <div class="container">
           <div class="fb-profile">
               <img align="left" class="fb-image-lg" src="../../../static/bars-theeparkside-header.png" alt="Profile Header"/>
               <img align="left" class="fb-image-profile thumbnail border-dotted" src="{{ event_poster }}" alt="Profile side image "/>
-              
+          </div>   
               <div class="fb-profile-text">
               <div class="row">
                 <div class="card-body">
@@ -26,8 +26,9 @@
                   
                   </div>
                 </div>
-                <div class="container col-m6">
-                  <div class="container">
+
+                <div class="container ">
+                  <div class="col">
                     <div class="container border-dotted mt-3 ">
                       <h1 class="text-center mt-2">{{event.name_of_event}}</h1>
                       <h5 class="text-center">About this event:</h5>
@@ -37,6 +38,8 @@
                     <h5 class="text-center">Date & Time:</h5>
                     <p class="text-center">{{event.date_of_party}}</p>
                     </div>
+
+                    {% for bar in event.bars %}
                     <div class="container border-dotted my-3">
                       <h6 class="text-center mt-2">Location:</h6>
                       <h3 class="text-center">{{bar.bar_name}} </h3>
@@ -48,9 +51,30 @@
                           <a href="http://{{bar.website}}">{{bar.website}}</a>
                         </p>
                       </div>
-                      
+                     
                      
                     </div>
+                    {% endfor %}   
+
+                    
+                    <div class="container border-dotted mb-3 ">
+                      <div class="row">
+                        <div class="col">
+                          <h3 class="text-center mt-2">Rsvp'd:</h3>
+                          <div class="container d-flex justify-content-between">
+                            {% for rsvp in event.rsvps %}
+                            <img class="m-3" src="../../../static/profile_pics/{{rsvp.image_file}}"  width="50" height="50" alt="rsvps">
+                            {% endfor %}  
+                          </div>
+                         
+                        </div>
+                      </div>
+                    </div>
+                    
+                       
+                     
+                     
+                     
                   
                     <div class="container border-dotted mb-3 ">
                       <div class="container  ">
@@ -59,7 +83,7 @@
                           <img class="image-center center-block" src="../../../static/profile_pics/{{event.user.image_file}}" alt="">
                         </div>
                         
-                        <h4 class="text-center">Contact host: {{event.user.email}}</h4>
+                        <h4 class="text-center">Event host: <a href="mailto:{{event.user.email}}">{{event.user.email}}</a></h4>
                       </div>
                       
                      </div>
@@ -84,7 +108,7 @@
        
   
       </div>
-      {% endfor %}
+    
       
     
   </div>

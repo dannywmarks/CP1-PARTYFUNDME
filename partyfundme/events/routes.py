@@ -14,7 +14,7 @@ events = Blueprint('events', __name__,template_folder='templates', static_folder
 
 @events.route("/events")
 def events_list():
-    events = [event.to_dict() for event in Event.query.all()]
+    events = Event.query.all()
     return render_template('events/events_list.html', events=events)
 
 @events.route("/my_events")
@@ -42,9 +42,9 @@ def update_event(event_id):
            picture_file = save_picture(form.event_flyer_img.data)
            event.event_flyer_img = picture_file
         event.name_of_event = form.name_of_event.data
-        event.number_of_guests = form.number_of_guests.data
+        # event.number_of_guests = form.number_of_guests.data
         # event.date_of_party = form.date_of_party.data
-        # event.time_of_party = form.time_of_party.data
+        event.time_of_party = form.time_of_party.data
         event.target_goal = form.target_goal.data
         event.total_fund = form.total_fund.data
         event.desc = form.desc.data
@@ -77,7 +77,9 @@ def new_event():
            
         event_flyer_img = picture_file
         name_of_event = form.name_of_event.data
+        user_id = current_user.id
         desc = form.desc.data
+        user_id = current_user.id
         number_of_guests = form.number_of_guests.data
         date_of_party = form.date_of_party.data
         time_of_party = form.date_of_party.data
@@ -89,7 +91,8 @@ def new_event():
 
         event = Event.register(
             name_of_event, 
-            event_flyer_img,  
+            event_flyer_img,
+            user_id,  
             desc, 
             number_of_guests, 
             date_of_party, 

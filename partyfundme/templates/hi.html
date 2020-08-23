@@ -1,31 +1,31 @@
 {% extends 'layout.html' %} {% block content %}
 
-{% from "includes/_formhelpers.html" import render_field %}
-          <form method="POST" action="{{ url_for('users.signup') }}">
-            {{ form.csrf_token }}
-            
-            <div class="form-row">
-              <div class="col form-group">
-                {{render_field(form.name, class_="form-control" )}}
-              </div> <!-- form-group end.// -->
-              
-            </div> <!-- form-row end.// -->
-            <div class="form-group">
-              {{render_field(form.email, class_="form-control")}}
-            </div>
 
-            <div class="form-group">
-              {{render_field(form.body, class_="form-control")}}
-            </div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mt-5">
+      <h1 class="text-center">Mission Statement</h1>
+      <p>Welcome to my passion project!
 
-            
-            
-             
-              <small class="text-muted">By clicking the 'Sign Up' button, you accept our <br> Terms of use and Privacy Policy.</small> 
-              
-              <div class="border-top card-body text-center">Have an account? <a href="{{url_for('users.login')}}">Log In</a></div>
-            
-              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign up</button>
-              <hr class="my-4">
-          </form>
+        I have been involved with the Music and the Bar industry for over 20 years. These industries have been affected by the 2020 covid-19 pandemic, forcing bars and music venues into debt and risking bankruptcy, and worse, having to shut their doors down for good.
+        
+        Live music and neighborhood bars and restaurants have been a positive outlet and 
+        
+        My goal is to create an online ecosystem that incentivizes venues, bartenders, and artists to connect with their customers.
+        
+        
+        
+        
+        
+        Interface for Bartenders to post hours to keep their regulars informed of their daily/weekly shifts.
+        
+        
+        Please check back for future updates!
+        </p>
+    </div>
+    <div class="col-md-6 mx-auto mt-5 avatar ">
+      <img class="avatar img-fluid" src="../static/dannyd.jpg" alt="">
+    </div>
+  </div>
+</div>
           {% endblock %}

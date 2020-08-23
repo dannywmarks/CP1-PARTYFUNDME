@@ -2,6 +2,11 @@
 
 {% block content %}
 
+<div class="container">
+  <div class="auto-complete"></div>
+</div>
+
+
 <section class="container mt-4 mb-4">
   <h1 class="text-center mb-5"><a href="{{ url_for('bars.signup') }}">Partner Bars</a></h1>
   
@@ -14,21 +19,24 @@
                   <img class="card-img" src="../static/bar3.jpg" alt="Suresh Dasari Card">
               </div>
               <div class="col-sm-7">
+                <a href="{{url_for('bars.bars_profile', bar_id=bar.id)}}">
                   <div class="card-body">
-                      <h5 class="card-title">{{ bar.bar_name }}</h5>
-                      <p class="card-text">Tenderloin</p>
-                      <div class="container text-center">
-                        <a type="button" class="btn-floating btn-fb btn-sm">
-                          <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a type="button" class="btn-floating btn-tw btn-sm">
-                          <i class="fab fa-twitter"></i>
-                        </a>
-                        <a type="button" class="btn-floating btn-li btn-sm">
-                          <i class="fab fa-linkedin-in"></i>
-                        </a>
-                      </div>
-                  </div>
+                    <h5 class="card-title">{{ bar.bar_name }}</h5>
+                    <p class="card-text">Tenderloin</p>
+                    <div class="container text-center">
+                      <a type="button" class="btn-floating btn-fb btn-sm">
+                        <i class="fab fa-facebook-f"></i>
+                      </a>
+                      <a type="button" class="btn-floating btn-tw btn-sm">
+                        <i class="fab fa-twitter"></i>
+                      </a>
+                      <a type="button" class="btn-floating btn-li btn-sm">
+                        <i class="fab fa-linkedin-in"></i>
+                      </a>
+                    </div>
+                </div>
+                </a>
+                 
               </div>
           </div>
       </div>

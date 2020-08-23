@@ -22,3 +22,17 @@ class EmailForm(FlaskForm):
         validators=[DataRequired()]
     )
 
+class NewsLetter(FlaskForm):
+    name = StringField(
+        'Name',
+        validators=[DataRequired()]
+    )
+    email = StringField(
+        'Email',
+        validators=[
+            Length(min=6),
+            Email(message='Enter a valid email.'),
+            DataRequired()
+        ]
+    )
+    submit = SubmitField('Subscribe')

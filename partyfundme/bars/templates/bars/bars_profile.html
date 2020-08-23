@@ -5,15 +5,27 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='bars.css') }}"/>
 
 <div class="container">
-  <div class="fb-profile">
+  <div class="bar-profile">
       <img align="left" class="fb-image-lg" src="../../../static/bars-theeparkside-header.png" alt="Profile Header"/>
-      <img align="left" class="fb-image-profile thumbnail" src="../../../static/bar1.jpg" alt="Profile side image "/>
+      <img align='left'class="bar-image-profile " src="../../../static/bar1.jpg" alt="Profile side image "/>
       <div class="fb-profile-text">
-          <h1>{{bar.id}}</h1>
-          <p>{{bar.desc}}</p>
+          
+          
       </div>
   </div>
 </div> <!-- /container -->  
 
- 
+ <div class="container ">
+   <div class="row">
+     <div class="col ">
+      <h1>{{bar.bar_name}}</h1>
+      {{bar.address}} <Br>{{bar.city}}, {{bar.state}} <br>
+        <a href="{{bar.website}}">{{bar.website}} </a><br>
+        <a href="mailto:{{bar.email}}">{{bar.email}}</a>
+        <p class="my-3">{{bar.desc}}</p>
+      
+     </div>
+    
+   </div>
+ </div>
 {% endblock %}

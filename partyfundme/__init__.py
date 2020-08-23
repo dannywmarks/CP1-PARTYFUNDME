@@ -81,9 +81,9 @@ def create_app():
     
     #Asset Bundles
 
-    js = Bundle('js/barsProfile.js', 'js/searchEvent.js','js/stripe.js', output='main.js')
+    js = Bundle('js/stripe.js',output='main.js')
 
-    css = Bundle('style.css', 'events.css','bars.css', output='main.css')
+    css = Bundle('style.css','events.css','bars.css', output='main.css')
 
     #Register Assets
     assets.register('main_js', js)

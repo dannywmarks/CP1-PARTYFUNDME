@@ -28,7 +28,7 @@ def signup():
         if existing_user is None:
         
             name = form.name.data
-            email = form.email.data
+            email = form.email.data.lower()
             username = form.username.data
             password = form.password.data
 
@@ -124,10 +124,11 @@ def edit_profile():
     """User profile logic."""
     form = UpdateAccountForm()
 
-    if request.method == 'POST':
+    if form.validate_on_submit():
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
             current_user.image_file = picture_file
+        current_user.name = form.name.data
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
@@ -135,6 +136,7 @@ def edit_profile():
         return redirect(url_for('users.edit_profile'))
 
     elif request.method == 'GET':
+        form.name.data = current_user.name
         form.username.data = current_user.username
         form.email.data = current_user.email
 
@@ -146,6 +148,8 @@ def edit_profile():
 @users.route("/profile/<int:user_id>/delete", methods=["POST"])
 @login_required
 def delete_profile(user_id):
+    
+
     
     user = User.query.get_or_404(user_id)
     db.session.delete(user)

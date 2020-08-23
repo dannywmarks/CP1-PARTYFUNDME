@@ -20,13 +20,14 @@ def signup():
         email = form.email.data
         phone = form.phone.data
         img = form.img.data
+        img_header = form.img.data
         desc = form.desc.data
         website = form.website.data
         facebook = form.facebook.data
         instagram = form.instagram.data
         twitter = form.twitter.data
 
-        bar = Bar.register(bar_name,address,city,state,country,email,phone,img,desc,website,facebook,instagram,twitter)
+        bar = Bar.register(bar_name,address,city,state,country,email,phone,img,img_header,desc,website,facebook,instagram,twitter)
        
         db.session.add(bar)
         db.session.commit()
