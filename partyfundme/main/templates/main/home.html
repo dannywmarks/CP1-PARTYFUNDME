@@ -1,6 +1,5 @@
 {% extends 'layout.html' %} {% block content %}
 
-
 <!--- SHOWCASE-->
 <section id="showcase" class="py-5">
   <div class="primary-overlay text-black">
@@ -11,18 +10,22 @@
             SUPPORT OUR LOCAL SCENES!
           </h1>
           <p class="lead">
-            Your local bars and live music venues need you! Book a party, or fund a party now, and support your local scene!
+            Your local bars and live music venues need you! Book a party, or
+            fund a party now, and support your local scene!
           </p>
-          <a href="{{url_for('main.about')}}" class="btn btn-outline-secondary btn-lg text-white">
+          <a
+            href="{{url_for('main.about')}}"
+            class="btn btn-outline-danger btn-lg text-white"
+          >
             <i class="fas fa-arrow-right"> Mission Statment</i>
           </a>
         </div>
         <div class="col-lg-6" id="poster-div">
-            <img
-              src="../static/book.png"
-              alt=""
-              class="img-fluid d-none d-lg-block"
-            />
+          <img
+            src="../static/book.png"
+            alt=""
+            class="img-fluid d-none d-lg-block"
+          />
         </div>
       </div>
     </div>
@@ -32,34 +35,32 @@
 <!-- NEWSLETTER -->
 <section id="newsletter" class="bg-dark text white py-5">
   <form method="POST" action="{{url_for('mail_blueprint.mailing_list')}}">
-    {{ form.hidden_tag() }} 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4">
-        <input
-          type="text"
-          class="form-control form-control-lg mb-resp"
-          placeholder="Enter Name"
-        />
-      </div>
-      <div class="col-md-4">
-        <input
-          type="email"
-          class="form-control form-control-lg mb-resp"
-          placeholder="Enter Email"
-        />
-      </div>
-      <div class="col-md-4">
-        <button type="submit" class="btn btn-primary btn-lg btn-block">
-          <i class="fas fa-envelope-o">Subscribe</i>
-        </button>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <input
+            type="text"
+            class="form-control form-control-lg mb-resp"
+            placeholder="Enter Name"
+          />
+        </div>
+        <div class="col-md-4">
+          <input
+            type="email"
+            class="form-control form-control-lg mb-resp"
+            placeholder="Enter Email"
+          />
+        </div>
+        <div class="col-md-4">
+          <button type="submit" class="btn btn-primary btn-lg btn-block">
+            <i class="fas fa-envelope-o">Subscribe</i>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-</form>
+  </form>
 </section>
-
-
 
 <!-- Events -->
 
@@ -67,8 +68,7 @@
   <div class="container">
     <h1 class="m-4 text-center">Upcoming Events</h1>
     <div class="row">
-      {% for event in events %}
-      {% for bar in event.bars %}
+      {% for event in events %} {% for bar in event.bars %}
       <div class="col-md-4 d-flex">
         <div class="card flex-fill">
           <a class="img-card" href="/events/{{ event.id }}">
@@ -87,43 +87,37 @@
                 <label>Date & Time</label>
                 <span>{{event.date_of_party}}</span>
                 <span>{{event.time_of_party}}</span>
-              </div><!--date,time-->
+              </div>
+              <!--date,time-->
               <div class="info-section">
                 <label>Location</label>
                 <span>{{bar.bar_name}}</span>
-              </div><!--screen-->
+              </div>
+              <!--screen-->
               <div class="info-section">
                 <label>Bar Tab Raised</label>
                 <span>{{event.total_fund}}</span>
-              </div><!--row-->
+              </div>
+              <!--row-->
               <div class="info-section">
                 <label>Goal</label>
                 <span>{{event.total_fund}}</span>
-              </div><!--seat-->
+              </div>
+              <!--seat-->
             </div>
           </div>
-
-        
         </div>
       </div>
 
       <!-- end of card-->
-      {% endfor %}
-      {% endfor %}
+      {% endfor %} {% endfor %}
     </div>
   </div>
 </section>
 
 <!-- Bars -->
 
-
-
-
-
 <section id="bars" class="my-5 text-center">
-
-  
-  
   <!---->
   <div class="container">
     <div class="row">
@@ -140,108 +134,124 @@
       </div>
     </div>
 
-
     <!--- carousel -->
 
     <div class="container text-center my-3">
       <div class="row mx-auto my-auto">
-          <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
-              <div class="carousel-inner w-100" role="listbox">
-                <div class="carousel-item active">
-                  <div class="col-lg-3 col-md-6 col-sm-12 d-flex">
-                    <div class="card flex-fill">
-                      <div class="card-body">
-                        <img
-                          src="../static/bar1.jpg"
-                          alt=""
-                          class="img-fluid rounded-circle w-50 mb-3"
-                        />
-                        <h3>Bar 1</h3>
-                        <h5 class="text-muted"></h5>
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                          Doloribus, qui. Voluptas voluptatum nisi sed officiis?
-                        </p>
-                        <div class="d-flex justify-content">
-                          <div class="p-4">
-                            <a href="http://facebook.com"
-                              ><i class="fab fa-facebook"></i>
-                            </a>
-                          </div>
-                          <div class="p-4">
-                            <a href="http://fadcebook.com"
-                              ><i class="fab fa-twitter"></i>
-                            </a>
-                          </div>
-                          <div class="p-4">
-                            <a href="http://fadcebook.com"
-                              ><i class="fab fa-instagram"></i>
-                            </a>
-                          </div>
-                        </div>
+        <div
+          id="recipeCarousel"
+          class="carousel slide w-100"
+          data-ride="carousel"
+        >
+          <div class="carousel-inner w-100" role="listbox">
+            <div class="carousel-item active">
+              <div class="col-lg-3 col-md-6 col-sm-12 d-flex">
+                <div class="card flex-fill">
+                  <div class="card-body">
+                    <img
+                      src="../static/bar1.jpg"
+                      alt=""
+                      class="img-fluid "
+                      id="bars"
+                    />
+                    <h3 class="my-2">Bar 1</h3>
+                    <h5 class="text-muted"></h5>
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                      Doloribus, qui. Voluptas voluptatum nisi sed officiis?
+                    </p>
+                    <div class="d-flex justify-content">
+                      <div class="p-4">
+                        <a href="http://facebook.com"
+                          ><i class="fab fa-facebook"></i>
+                        </a>
+                      </div>
+                      <div class="p-4">
+                        <a href="http://fadcebook.com"
+                          ><i class="fab fa-twitter"></i>
+                        </a>
+                      </div>
+                      <div class="p-4">
+                        <a href="http://fadcebook.com"
+                          ><i class="fab fa-instagram"></i>
+                        </a>
                       </div>
                     </div>
                   </div>
                 </div>
-                {% for bar in bars %}
-                <div class="carousel-item">
-                  <div class="col-lg-3 col-md-6 col-sm-12 d-flex">
-                    <div class="card flex-fill" >
-                      <div class="card-body">
-                        <img
-                          src="../static/bar1.jpg"
-                          alt=""
-                          class="img-fluid rounded-circle w-50 mb-3"
-                          id="authors"
-                        />
-                        <h3>{{ bar.bar_name }}</h3>
-                        <h5 class="text-muted">{{ bar.address }}</h5>
-                        <p>
-                          {{ bar.desc }}
-                        </p>
-                        <div class="d-flex justify-content">
-                          <div class="p-4">
-                            <a href='{{ bar.facebook }}'
-                              ><i class="fab fa-facebook"></i>
-                            </a>
-                          </div>
-                          <div class="p-4">
-                            <a href="{{ bar.instagram }}"
-                              ><i class="fab fa-twitter"></i>
-                            </a>
-                          </div>
-                          <div class="p-4">
-                            <a href="{{ bar.twitter }}"
-                              ><i class="fab fa-instagram"></i>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {% endfor %}
               </div>
-              <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
-                  <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
-                  <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
-                  <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
-                  <span class="sr-only">Next</span>
-              </a>
+            </div>
+            {% for bar in bars %}
+            <div class="carousel-item">
+              <div class="col-lg-3 col-md-6 col-sm-12 d-flex">
+                <div class="card flex-fill">
+                  <div class="card-body">
+                    <a href=""> <img
+                      src="../static/bar1.jpg"
+                      alt=""
+                      class="img-fluid"
+                      id="bars"
+                    /></a>
+                   
+                    <h3 class="my-2">{{ bar.bar_name }}</h3>
+                    <h5 class="text-muted">{{ bar.address }}</h5>
+                    <p>
+                      {{ bar.city }},{{bar.state}}<br>
+                      {{bar.website}}
+                 
+                    </p>
+                    <div class="d-flex justify-content">
+                      <div class="p-4">
+                        <a href="{{ bar.facebook }}"
+                          ><i class="fab fa-facebook"></i>
+                        </a>
+                      </div>
+                      <div class="p-4">
+                        <a href="{{ bar.instagram }}"
+                          ><i class="fab fa-twitter"></i>
+                        </a>
+                      </div>
+                      <div class="p-4">
+                        <a href="{{ bar.twitter }}"
+                          ><i class="fab fa-instagram"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
           </div>
+          <a
+            class="carousel-control-prev w-auto"
+            href="#recipeCarousel"
+            role="button"
+            data-slide="prev"
+          >
+            <span
+              class="carousel-control-prev-icon bg-dark border border-dark rounded-circle"
+              aria-hidden="true"
+            ></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a
+            class="carousel-control-next w-auto"
+            href="#recipeCarousel"
+            role="button"
+            data-slide="next"
+          >
+            <span
+              class="carousel-control-next-icon bg-dark border border-dark rounded-circle"
+              aria-hidden="true"
+            ></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
       </div>
-   
+    </div>
   </div>
-
-
-
-    
-  </div>
-  
 </section>
-
 
 <!-- CONTACT -->
 <section id="contact" class="bg-light py-5">
@@ -250,16 +260,22 @@
       <div class="col-lg-9">
         <h3>Want your favorite bar listed?</h3>
         <p class="lead">
-          Send a message below and we will reach out to verify venue. 
+          Send a message below and we will reach out to verify venue.
         </p>
-        <form method="POST" action="{{url_for('mail_blueprint.mailing_list')}}">
+        <form method="POST" action="{{url_for('mail_blueprint.send_ticket')}}">
+          
           <div class="input-group input-group-lg mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text">
                 <i class="fas fa-user"></i>
               </span>
             </div>
-            <input type="text" class="form-control" placeholder="Name" />
+            <input
+              name="name"
+              type="text"
+              class="form-control"
+              placeholder="Name"
+            />
           </div>
 
           <div class="input-group input-group-lg mb-3">
@@ -268,7 +284,12 @@
                 <i class="fas fa-envelope"></i>
               </span>
             </div>
-            <input type="text" class="form-control" placeholder="Email" />
+            <input
+              name="email"
+              type="text"
+              class="form-control"
+              placeholder="Email"
+            />
           </div>
 
           <div class="input-group input-group-lg mb-3">
@@ -281,12 +302,14 @@
               class="form-control"
               placeholder="Message"
               rows="5"
+              name="textarea"
             ></textarea>
           </div>
           <input
             type="submit"
             value="Submit"
             class="btn btn-primary btn-block"
+            action="/send_ticket"
           />
         </form>
       </div>

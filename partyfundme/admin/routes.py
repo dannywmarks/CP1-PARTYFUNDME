@@ -3,7 +3,7 @@ from .. import flaskAdmin
 from flask_admin import AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 from flask_sqlalchemy import SQLAlchemy
-from ..models import User, Bar, Event, EventList
+from ..models import User, Bar, Event, EventList, OAuth
 from flask_login import current_user
 from .. import db
 
@@ -13,6 +13,7 @@ flaskAdmin.add_view(ModelView(User, db.session))
 flaskAdmin.add_view(ModelView(Bar, db.session))
 flaskAdmin.add_view(ModelView(Event, db.session))
 flaskAdmin.add_view(ModelView(EventList, db.session))
+flaskAdmin.add_view(ModelView(OAuth, db.session))
 
 
 

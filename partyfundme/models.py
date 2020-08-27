@@ -1,6 +1,7 @@
 from . import db, bcrypt
 from flask_login import UserMixin, current_user, LoginManager
-from flask_dance.consumer.storage.sqla import OAuthConsumerMixin, SQLAlchemyStorage
+from flask_dance.consumer.storage.sqla import OAuthConsumerMixin, SQLAlchemyStorage 
+
 from .users.oauth import twitter_blueprint, google_blueprint
 from flask_admin.contrib.sqla import ModelView
 
@@ -92,10 +93,15 @@ class OAuth(OAuthConsumerMixin, db.Model):
     """ Flask Dance OAUTH table """
     user_id = db.Column(db.Integer, db.ForeignKey(User.id))
     user = db.relationship(User)
-    
-twitter_blueprint.backend = SQLAlchemyStorage(OAuth, db.session, user=current_user)
 
-google_blueprint.backend = SQLAlchemyStorage(OAuth, db.session, user=current_user)
+from flask_dance.contrib.twitter import make_twitter_blueprint, twitter
+from flask_dance.contrib.google import make_google_blueprint, google
+
+    
+twitter_blueprint.storage = SQLAlchemyStorage(OAuth, db.session, user=current_user)
+
+
+google_blueprint.storage = SQLAlchemyStorage(OAuth, db.session, user=current_user)
 
 
 

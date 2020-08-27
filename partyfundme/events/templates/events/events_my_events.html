@@ -27,14 +27,16 @@
         <div class="event-content">
           <div class="event-content-header">
             <form class="mb-2">
-              <button class="btn btn-outline-primary btn-lg"
+              <button class="btn btn-outline-primary "
                       formaction="{{ url_for('events.update_event', event_id=event.id )}}"
-                      formmethod="GET">Edit
+                      formmethod="GET">Edit Event
               </button>
-              <button class="btn btn-outline-danger btn-lg"
-                      formaction="{{ url_for('users.edit_profile' )}}"
-                      formmethod="POST">Delete
-              </button>
+               
+            <button class="btn btn-outline-danger "
+                   formaction="/events/{{ event.id }}/delete"
+                   formmethod="POST">Delete 
+            </button>
+             
             </form>
             <a href="#">
               <h3 class="event-title">{{event.name_of_event}}</h3>

@@ -65,8 +65,21 @@
           </div>
           
          
-      
-          <p><input type="submit" class="btn btn-primary btn-block" value="Update" /></p>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <p><input type="submit" class="btn btn-primary btn-block" value="Update" /></p>
+            
+          </div>
+          <div class="col-md-6">
+            <button class="btn btn-danger btn-block "
+                   formaction="/events/{{ event.id }}/delete"
+                   formmethod="POST">Delete 
+            </button>
+          </div>
+        </div>
+      </div>
+          
         </form>
       </div>
     </div>

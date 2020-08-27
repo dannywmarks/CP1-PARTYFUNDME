@@ -1,7 +1,7 @@
-from flask import render_template, request, Blueprint, flash, redirect, url_for, Response
+from flask import render_template, request, Blueprint, flash, redirect, url_for, Response, session
 from .forms import CreateEventForm, UpdateEventForm
 from ..models import db, Event
-from flask_login import current_user
+from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename
 from partyfundme.utils import save_picture
 # pylint: disable=E1101
@@ -17,12 +17,6 @@ def events_list():
     events = Event.query.all()
     return render_template('events/events_list.html', events=events)
 
-@events.route("/my_events")
-def my_events():
-    user = current_user
-    return render_template('events/events_my_events.html', user=user)
-
-
 
 @events.route("/events/<int:event_id>")
 def event(event_id):
@@ -31,7 +25,14 @@ def event(event_id):
     event_poster = event.event_flyer_img
     return render_template('events/events_event.html', event=event, event_poster=event_poster )
 
+
+
+
+
+
+
 @events.route("/events/<int:event_id>/update", methods=['GET', 'POST'])
+@login_required
 def update_event(event_id):
 
     form = UpdateEventForm()
@@ -68,6 +69,7 @@ def update_event(event_id):
 
 
 @events.route("/events/new_event", methods=['GET', 'POST'])
+@login_required
 def new_event():
     form = CreateEventForm()
 
@@ -106,14 +108,26 @@ def new_event():
         db.session.add(event)
         db.session.commit()
 
-        flash('Event created!')
+        flash('Event created!', 'success')
         return redirect(url_for('events.events_list'))
 
     
     return render_template('events/events_signup.html', form=form)
 
-
-
-
     
-                        
+@events.route("/events/<int:event_id>/delete", methods=['POST'])                       
+@login_required
+def delete_profile(event_id):
+    
+    event = Event.query.get_or_404(event_id)
+    db.session.delete(event)
+    db.session.commit()
+    flash("Event Deleted.", 'success')
+
+    return redirect("/")
+
+@events.route("/my_events")
+@login_required
+def my_events():
+    user = current_user
+    return render_template('events/events_my_events.html', user=user)

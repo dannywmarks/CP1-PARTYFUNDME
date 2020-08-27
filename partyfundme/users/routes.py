@@ -6,7 +6,7 @@ from partyfundme import app
 from itsdangerous import SignatureExpired
 from flask_mail import Message
 from flask_login import login_required, logout_user, current_user, login_user
-from .. import mail
+from .. import flask_mail
 from partyfundme.utils import serializer, save_picture
 import requests, json
 import secrets
@@ -39,7 +39,7 @@ def signup():
             msg.body = 'Your Link is {}'.format(link)
 
             # Send Confirmation Email
-            mail.send(msg)
+            flask_mail.send(msg)
 
             # Instantiate User
             user = User.register(name, email, username, password)
@@ -94,7 +94,7 @@ def login():
             login_user(user)
             next_page = request.args.get('next')
             return redirect(next_page or url_for('main.home'))
-        flash('Invalid username/password combination')
+        flash('Invalid username/password combination', 'success')
         return redirect(url_for('users.login'))
     
     return render_template("users/signin.html", form=form)
@@ -150,12 +150,13 @@ def edit_profile():
 def delete_profile(user_id):
     
 
-    
+
     user = User.query.get_or_404(user_id)
     db.session.delete(user)
     db.session.commit()
-    flash("User Account Deleted.")
+    flash("User Account Deleted.", 'success')
 
     return redirect("/")
+
 
 

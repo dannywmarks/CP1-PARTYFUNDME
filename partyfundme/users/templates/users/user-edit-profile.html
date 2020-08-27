@@ -3,19 +3,34 @@
 {{ form.hidden_tag() }}
 <div class="container border-dotted">
 
+    
 
     <div class="content-section">
+        <div class="container">
+            {% if current_user.mailing_list %}
+            <h4 class="text-center">You are currently subscribed to our mailing list</h4>
+            <form method="POST" action="{{ url_for('mail_blueprint.unsubscribe' )}}">
+                <button class="btn btn-outline-primary btn-block m-2 "
+                >Unsubscribe
+                </button>
+            </form>
+          {% endif %}
+          </div>
+        <hr>
       <div class="media m-3">
+          
         <img class="rounded-circle account-img mb-3" src="{{ image_file }}">
         <div class="media-body m-3">
           <h2 class="account-heading m-3 ">{{ current_user.username }}</h2>
           <p class="text-secondary m-3 ">{{ current_user.email }}</p>
         </div>
+        
       </div>
       {% from "includes/_formhelpers.html" import render_field %}
      
         <form method="POST" action="" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
+
              
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Account Info</legend>
@@ -69,17 +84,27 @@
                         {% endfor %}
                     {% endif %}
                 </div>
+              
+                <hr>
             </fieldset>
             <div class="form-group">
                 
                 {{ form.submit(class="btn btn-lg btn-outline-primary") }}
-                <button class="btn btn-lg btn-outline-danger"
+                
+                
+                 <button class="btn btn-lg btn-outline-danger m-2"
                 formaction="{{ url_for('users.profile' )}}"
                 formmethod="GET">Back
                  </button>
+        
             </div>
+
+          
+           
            
         </form>
+
+    
     </div>
   </div>
 {% endblock content %}

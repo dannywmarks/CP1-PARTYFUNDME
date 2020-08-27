@@ -35,14 +35,14 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
 csrf = CSRFProtect()
-mail = Mail()
+flask_mail = Mail()
 flaskAdmin = Admin(template_mode='bootstrap3', index_view=MyAdminIndexView())
 
 
 
 
 def create_app():
-  
+    
 
     # Application Configuration
     app.config.from_object('config.Config')
@@ -58,7 +58,7 @@ def create_app():
     #CRSFTOKEN FOR WTFORMS
     csrf.init_app(app) 
     #FLASK MAIL
-    mail.init_app(app) 
+    flask_mail.init_app(app) 
     #FLASK ADMIN
     flaskAdmin.init_app(app)
     #OAUTH 2.0

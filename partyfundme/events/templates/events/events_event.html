@@ -42,12 +42,12 @@
                     {% for bar in event.bars %}
                     <div class="container border-dotted my-3">
                       <h6 class="text-center mt-2">Location:</h6>
-                      <h3 class="text-center">{{bar.bar_name}} </h3>
+                      <a href="{{url_for('bars.bars_profile', bar_id=bar.id)}}"><h3 class="text-center">{{bar.bar_name}} </h3></a>
                       <div class="container ">
                         <p class="text-center">{{bar.address}}<br>
                           {{bar.city}}
                           {{bar.state}}<br>
-                          {{bar.email}}<br>
+                          <a href="mailto:{{bar.email}}">{{bar.email}} </a><br>
                           <a href="http://{{bar.website}}">{{bar.website}}</a>
                         </p>
                       </div>

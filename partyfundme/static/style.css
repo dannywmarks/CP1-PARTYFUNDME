@@ -66,6 +66,7 @@ body {
   border-bottom: 1px #ddd solid;
 }
 
+
 @media (max-width: 768px) {
   #showcase {
     min-height: 500px;
@@ -625,3 +626,7 @@ a:hover {
   height: 600px;
   width: 800px;
 }
+
+
+
+

@@ -15,7 +15,7 @@ class Config:
     SECRET_KEY = environ.get('SECRET_KEY')
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     DEBUG = True
-    WTF_CSRF_ENABLED = True
+    WTF_CSRF_ENABLED = False
 
     # FLASK MAIL
     MAIL_SERVER='smtp.gmail.com'

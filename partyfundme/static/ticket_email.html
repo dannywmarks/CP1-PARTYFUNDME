@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Party Fund</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+
+  
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.8/css/all.css"
+      integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <style>
+      .ticket {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        width: 700px;
+        margin: 20px auto;
+      }
+      .ticket .stub,
+      .ticket .check {
+        box-sizing: border-box;
+      }
+      .stub {
+        background: #ef5658;
+        height: 250px;
+        width: 250px;
+        color: white;
+        padding: 20px;
+        position: relative;
+      }
+      .stub:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        border-top: 20px solid #dd3f3e;
+        border-left: 20px solid #ef5658;
+        width: 0;
+      }
+      .stub:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        border-bottom: 20px solid #dd3f3e;
+        border-left: 20px solid #ef5658;
+        width: 0;
+      }
+      .stub .top {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        height: 40px;
+        text-transform: uppercase;
+      }
+      .stub .top .line {
+        display: block;
+        background: #fff;
+        height: 40px;
+        width: 3px;
+        margin: 0 20px;
+      }
+      .stub .top .num {
+        font-size: 10px;
+      }
+      .stub .top .num span {
+        color: #000;
+      }
+      .stub .number {
+        position: absolute;
+        left: 40px;
+        font-size: 150px;
+      }
+      .stub .invite {
+        position: absolute;
+        left: 150px;
+        bottom: 45px;
+        color: #000;
+        width: 20%;
+      }
+      .stub .invite:before {
+        content: "";
+        background: #fff;
+        display: block;
+        width: 40px;
+        height: 3px;
+        margin-bottom: 5px;
+      }
+      .check {
+        background: #fff;
+        height: 250px;
+        width: 450px;
+        padding: 40px;
+        position: relative;
+      }
+      .check:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-top: 20px solid #dd3f3e;
+        border-right: 20px solid #fff;
+        width: 0;
+      }
+      .check:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        border-bottom: 20px solid #dd3f3e;
+        border-right: 20px solid #fff;
+        width: 0;
+      }
+      .check .big {
+        font-size: 80px;
+        font-weight: 900;
+        line-height: 0.8em;
+      }
+      .check .number {
+        position: absolute;
+        top: 50px;
+        right: 50px;
+        color: #ef5658;
+        font-size: 40px;
+      }
+      .check .info {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+        font-size: 12px;
+        margin-top: 20px;
+        width: 100%;
+      }
+      .check .info section {
+        margin-right: 50px;
+      }
+      .check .info section:before {
+        content: "";
+        background: #ef5658;
+        display: block;
+        width: 40px;
+        height: 3px;
+        margin-bottom: 5px;
+      }
+      .check .info section .title {
+        font-size: 10px;
+        text-transform: uppercase;
+      }
+
+      ul {
+        list-style-type: none;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      a:hover {
+        color: #dd3f3e;
+        text-decoration: none;
+      }
+
+      .event-content {
+        padding: 18px 18px 24px 18px;
+        margin: 0;
+      }
+
+      .event-content-header,
+      .event-info {
+        display: table;
+        width: 100%;
+      }
+
+      .event-title {
+        font-size: 24px;
+        margin: 0;
+        display: table-cell;
+      }
+
+      .ms-logo {
+        width: 40px;
+        height: 35px;
+        background: url("../static/logo.svg") no-repeat;
+        background-size: contain;
+        display: table-cell;
+        /* float: right; */
+        position: relative;
+        /* margin-top: 5px; */
+      }
+
+      .event-info {
+        margin-top: 1em;
+      }
+
+      .info-section {
+        display: table-cell;
+        text-transform: uppercase;
+        text-align: center;
+      }
+
+      .info-section:first-of-type {
+        text-align: left;
+      }
+
+      .info-section:last-of-type {
+        text-align: right;
+      }
+
+      .info-section label {
+        display: block;
+        color: rgba(0, 0, 0, 0.5);
+        margin-bottom: 0.5em;
+        font-size: 9px;
+      }
+
+      .info-section span {
+        font-weight: 700;
+        font-size: 11px;
+      }
+
+      .media {
+        display: flex;
+        height: 150px;
+        width: 150px;
+      }
+
+      .avatar {
+        height: 600px;
+        width: 800px;
+      }
+    </style>
+
+    <div class="ticket">
+      <div class="stub">
+        <div class="top">
+          <span class="admit">Admit</span>
+          <span class="line"></span>
+          <span class="num">
+            Invitation
+            <span>31415926</span>
+          </span>
+        </div>
+        <div class="number">1</div>
+        <div class="invite">Invite for you</div>
+      </div>
+      <div class="check">
+        <div class="big">
+          You're <br />
+          Invited
+        </div>
+        <div class="number">#1</div>
+        <div class="info">
+          <section>
+            <div class="title">Date</div>
+            <div>4/27/2016</div>
+          </section>
+          <section>
+            <div class="title">Issued By</div>
+            <div>Ampersand</div>
+          </section>
+          <section>
+            <div class="title">Invite Number</div>
+            <div>31415926</div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

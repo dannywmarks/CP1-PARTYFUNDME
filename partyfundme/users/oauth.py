@@ -1,6 +1,7 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, abort, session
 from flask_dance.contrib.twitter import make_twitter_blueprint, twitter
 from flask_dance.contrib.google import make_google_blueprint, google
+from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
 from flask_dance.consumer import oauth_authorized
 from os import environ, path
 from sqlalchemy.orm.exc import NoResultFound
@@ -24,7 +25,9 @@ def twitter_login():
         return redirect(url_for('twitter.login'))
     account_info = twitter.get('account/settings.json')
     account_info_json = account_info.json()
+    screen_name = account_info_json['discoverable_by_email']
     print(f'{account_info_json}')
+    print(f'{screen_name}')
     return '<h1>Your Twitter name is @{}</h1>'.format(account_info_json['screen_name'])
     
 
@@ -32,7 +35,7 @@ def twitter_login():
 def twitter_logged_in(blueprint, token):
     from ..models import User, db
     account_info = blueprint.session.get('account/settings.json')
-    
+    print('i am working')
     if account_info.ok:
         account_info_json = account_info.json()
         username = account_info_json['screen_name']
