@@ -1,49 +1,14 @@
 from flask import Flask, session, redirect, request, url_for
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin,current_user
-from flask_admin import Admin, AdminIndexView
-from flask_admin.contrib.sqla import ModelView
-from flask_mail import Mail, Message
-from flask_bcrypt import Bcrypt
-from flask_wtf.csrf import CSRFProtect
-from flask_assets import Environment, Bundle
+from .extensions import db, assets, login_manager, flask_mail, bcrypt, csrf, js, css, flaskAdmin
+from .models import MyAdminIndexView
 from flask_dance.contrib.twitter import make_twitter_blueprint, twitter
 from flask_dance.contrib.google import make_google_blueprint, google
 from os import environ
 
-class AdminView(ModelView):
-
-    def is_accessible(self):
-        return session.get('user') == 'Administrator'
-
-    def inaccessible_callback(self, name, **kwargs):
-        if not self.is_accessible():
-            return redirect(url_for('main.home', next=request.url))
-
-class MyAdminIndexView(AdminIndexView):
-    def is_accessible(self):
-        return current_user.is_authenticated
-
-    def inaccessible_callback(self, name, **kwargs):
-        if not self.is_accessible():
-            return redirect(url_for('main.home', next=request.url))
-
-
-app = Flask(__name__)
-assets = Environment()
-db = SQLAlchemy()
-login_manager = LoginManager()
-bcrypt = Bcrypt()
-csrf = CSRFProtect()
-flask_mail = Mail()
-flaskAdmin = Admin(template_mode='bootstrap3', index_view=MyAdminIndexView())
-
-
-
 
 def create_app():
     
-
+    app = Flask(__name__)
     # Application Configuration
     app.config.from_object('config.Config')
 
@@ -60,7 +25,7 @@ def create_app():
     #FLASK MAIL
     flask_mail.init_app(app) 
     #FLASK ADMIN
-    flaskAdmin.init_app(app)
+    flaskAdmin.init_app(app, index_view=MyAdminIndexView())
     #OAUTH 2.0
     # oauth.init_app(app)
     #FLASK ASSETS
@@ -79,12 +44,7 @@ def create_app():
         return User.query.get(user_id)
       return None
     
-    #Asset Bundles
-
-    js = Bundle('js/stripe.js',output='main.js')
-
-    css = Bundle('style.css','events.css','bars.css', output='main.css')
-
+   
     #Register Assets
     assets.register('main_js', js)
     assets.register('main_css', css)
@@ -100,6 +60,7 @@ def create_app():
     from .users.oauth import oauth_blueprint
     from .mail.routes import mail_blueprint
 
+    # Initialize Oauth Blue Prints
     twitter_blueprint = make_twitter_blueprint(api_key=environ.get('TWITTER_API_KEY'), api_secret=environ.get('TWITTER_SECRET'))
     google_blueprint = make_google_blueprint(client_id=environ.get('GOOGLE_CLIENT_ID'), client_secret=environ.get('GOOGLE_SECRET'))
 

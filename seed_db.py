@@ -176,7 +176,7 @@ with app.app_context():
     date_of_party="05-03-2020",
     time_of_party="9:00",
     target_goal="$1500",
-    total_fund="$55",
+    total_fund=55,
     )
   e2 = Event(
     name_of_event="Covid-19 Celebration",
@@ -186,7 +186,7 @@ with app.app_context():
     date_of_party="02-13-2020",
     time_of_party="9:00",
     target_goal="$500",
-    total_fund="$20",
+    total_fund=600,
     )
   e3 = Event(
     name_of_event="MoneyShot Promo",
@@ -196,7 +196,7 @@ with app.app_context():
     date_of_party="09-23-2020",
     time_of_party="9:00",
     target_goal="$2500",
-    total_fund="$3000",
+    total_fund=3000,
     )
   e4 = Event(
     name_of_event="Powerhouse Productions",
@@ -206,7 +206,7 @@ with app.app_context():
     date_of_party="07-13-2020",
     time_of_party="9:00",
     target_goal="$2000",
-    total_fund="$2500",
+    total_fund=2500
     )
   e5 = Event(
     name_of_event="Tommy's Graduation",
@@ -216,7 +216,7 @@ with app.app_context():
     date_of_party="05-03-2020",
     time_of_party="9:00",
     target_goal="$1000",
-    total_fund="$200",
+    total_fund=2000,
     )
   e6 = Event(
     name_of_event="Arcade Tournamet",
@@ -226,7 +226,7 @@ with app.app_context():
     date_of_party="05-03-2020",
     time_of_party="9:00",
     target_goal="$5000",
-    total_fund="$3300",
+    total_fund=3300,
     )
 
 

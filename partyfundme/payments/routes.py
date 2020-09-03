@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify, Blueprint, url_for, abort
+from flask import Flask, request, render_template, jsonify, Blueprint, url_for, abort, redirect
 from os import environ
 import stripe
 
@@ -6,6 +6,8 @@ payments_blueprint= Blueprint('payments_blueprint',
                               __name__, 
                               template_folder='templates', 
                               static_folder='static')
+
+                             
 
 @payments_blueprint.route('/stripe')
 def stripe_payment():
@@ -17,7 +19,7 @@ def stripe_payment():
       'quantity': 1,
     }],
     mode='payment',
-    success_url=url_for('payments_blueprint.thanks', _external=True) + '?session_id={CHECKOUT_SESSION_ID}',
+    success_url=url_for('mail_blueprint.ticket', _external=True) + '?session_id={CHECKOUT_SESSION_ID}',
     cancel_url =url_for('main.home', _external=True)
   )
   return {
@@ -27,6 +29,7 @@ def stripe_payment():
 
 @payments_blueprint.route('/thanks')
 def thanks():
+    """ Stripe confirmation page """
     return render_template('payments/ticket.html')
 
 @payments_blueprint.route('/stripe_webhook', methods=['POST'])

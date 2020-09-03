@@ -78,6 +78,9 @@ body {
   .mb-resp {
     margin-bottom: 1rem;
   }
+  #poster-div {
+    display: none;
+  }
 }
 
 /* ######################USER SIGN IN##################### */
@@ -241,6 +244,9 @@ div #poster {
   max-height: 100%;
   max-width: 100%;
 }
+
+
+
 
 /* search bar */
 

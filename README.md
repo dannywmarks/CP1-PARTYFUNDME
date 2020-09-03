@@ -40,10 +40,8 @@ Build a platform that would allow bar owners and eventually users to create and 
 * Flask
 * WTFAlchemy
 * SQLAlchemy
-* EventBrite API
 * Payment Processing API 
 * OAUTH (Handling sensitive user payment info)
-* Twillio (?)
 * Email Framework
 
 ##**Milestones**

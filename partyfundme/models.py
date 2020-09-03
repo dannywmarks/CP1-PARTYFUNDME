@@ -1,11 +1,30 @@
-from . import db, bcrypt
+from flask import session, url_for, redirect, request
+from .extensions import db, bcrypt
 from flask_login import UserMixin, current_user, LoginManager
 from flask_dance.consumer.storage.sqla import OAuthConsumerMixin, SQLAlchemyStorage 
-
+from flask_admin import AdminIndexView
+from flask_admin.contrib.sqla import ModelView
 from .users.oauth import twitter_blueprint, google_blueprint
 from flask_admin.contrib.sqla import ModelView
 
 #pylint: disable=E1101
+
+class AdminView(ModelView):
+
+    def is_accessible(self):
+        return session.get('user') == 'Administrator'
+
+    def inaccessible_callback(self, name, **kwargs):
+        if not self.is_accessible():
+            return redirect(url_for('main.home', next=request.url))
+
+class MyAdminIndexView(AdminIndexView):
+    def is_accessible(self):
+        return current_user.is_authenticated
+
+    def inaccessible_callback(self, name, **kwargs):
+        if not self.is_accessible():
+            return redirect(url_for('main.home', next=request.url))
 
 
 
@@ -208,7 +227,7 @@ class Event(db.Model):
 
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name_of_event = db.Column(db.String(22), nullable=False, unique=False)
+    name_of_event = db.Column(db.String(250), nullable=False, unique=False)
     event_flyer_img = db.Column(db.String(255),nullable=False,default='default-event.png')
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'), nullable="False")
     desc = db.Column(db.String(255),nullable=False)
@@ -216,7 +235,7 @@ class Event(db.Model):
     date_of_party = db.Column(db.String(50))# nullable=False
     time_of_party = db.Column(db.String(50))
     target_goal = db.Column(db.String(50),nullable=False)
-    total_fund = db.Column(db.String(50),nullable=False)
+    total_fund = db.Column(db.Integer)
     created_on = db.Column(db.DateTime, server_default=db.func.now())
 
     rsvps = db.relationship('User', secondary="rsvps")
@@ -232,7 +251,7 @@ class Event(db.Model):
         date_of_party,
         time_of_party, 
         target_goal, 
-        total_fund,  
+        
     ):
 
         # return instance of bar
@@ -245,7 +264,7 @@ class Event(db.Model):
             date_of_party=date_of_party,
             time_of_party=time_of_party,
             target_goal=target_goal,
-            total_fund=total_fund,
+            
         )
     
     def to_dict(self):

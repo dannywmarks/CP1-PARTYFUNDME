@@ -9,6 +9,8 @@ from .. import db
 
 admin_blueprint = Blueprint('admin_blueprint', __name__, template_folder='templates')
 
+
+# Views in the ADMIN panel
 flaskAdmin.add_view(ModelView(User, db.session))
 flaskAdmin.add_view(ModelView(Bar, db.session))
 flaskAdmin.add_view(ModelView(Event, db.session))
@@ -29,10 +31,13 @@ class AdminView(ModelView):
 class MyAdminIndexView(AdminIndexView):
     def is_accessible(self):
         return current_user.is_authenticated
+    
+    def inaccessible_callback(self, name, **kwargs):
+        if not self.is_accessible():
+            return redirect(url_for('main.home', next=request.url))
 
 @admin_blueprint.route("/admin_blueprint")
 def admin_dashboard():
-    
     return render_template('admin.html')
 
 

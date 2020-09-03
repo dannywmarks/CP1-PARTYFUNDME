@@ -24,7 +24,7 @@ class CreateEventForm(FlaskForm):
         validators=[DataRequired(),Length(max=255)]
     )
     number_of_guests = StringField(
-        'Number of Guests',
+        'Max Number of Guests',
         validators=[DataRequired()]
     )
     date_of_party = DateField(
@@ -39,11 +39,7 @@ class CreateEventForm(FlaskForm):
         'Target Goal',
         validators=[DataRequired()]
     )
-    total_fund = StringField(
-        'Total Fund',
-        validators=[DataRequired()
-        ]
-    )
+    
     desc = TextAreaField(
         'Description',
         validators=[DataRequired()]
@@ -71,7 +67,7 @@ class UpdateEventForm(FlaskForm):
         validators=[DataRequired()]
     )
     number_of_guests = StringField(
-        'Number of Guests',
+        'Max Number of Guests',
         validators=[DataRequired()]
     )
     date_of_party = DateField('Date of Party', 
@@ -86,11 +82,7 @@ class UpdateEventForm(FlaskForm):
         'Target Goal',
         validators=[DataRequired()]
     )
-    total_fund = StringField(
-        'Total Fund',
-        validators=[DataRequired()
-        ]
-    )
+   
     desc = TextAreaField(
         'Description',
         validators=[DataRequired()]

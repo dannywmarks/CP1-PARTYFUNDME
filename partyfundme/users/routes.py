@@ -2,7 +2,7 @@
 from flask import render_template, Blueprint, redirect, request, url_for, flash, abort, session
 from .forms import LoginForm, SignupForm, UpdateAccountForm
 from ..models import db, User
-from partyfundme import app
+# from partyfundme import app
 from itsdangerous import SignatureExpired
 from flask_mail import Message
 from flask_login import login_required, logout_user, current_user, login_user
@@ -60,7 +60,7 @@ def signup():
 def confirm_email(token):
     """ User signup confirmation using token generated on User Signup """ 
     try:  
-        email = serializer.loads(token, salt='email-confirm', max_age=3600)
+        email = serializer.loads(token, salt='email-confirm', max_age=36000)
     except SignatureExpired:
         abort(404)
 
@@ -91,10 +91,14 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
 
         if user and user.authenticate(email, password):
-            login_user(user)
-            next_page = request.args.get('next')
-            return redirect(next_page or url_for('main.home'))
-        flash('Invalid username/password combination', 'success')
+            if user.email_confirmed == True:
+                login_user(user)
+                next_page = request.args.get('next')
+                return redirect(next_page or url_for('main.home'))
+            else:
+                flash('Must confirm email before logging in', 'danger')
+                return redirect(url_for('users.login'))
+        flash('Invalid username/password combination', 'danger')
         return redirect(url_for('users.login'))
     
     return render_template("users/signin.html", form=form)
@@ -106,6 +110,7 @@ def login():
 def logout():
     """User log-out logic."""
     logout_user()
+    flash('You are logged out!', 'success')
     return redirect(url_for('users.login'))
 
 @users.route("/profile")

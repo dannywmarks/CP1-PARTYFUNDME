@@ -34,7 +34,7 @@ class Config:
     # DATABASE
     SQLALCHEMY_DATABASE_URI = environ.get('SQLALCHEMY_DATABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = False
 
     # STRIPE API KEYS
     STRIPE_PUBLIC_KEY = environ.get('STRIPE_PUBLIC_KEY')
@@ -42,4 +42,15 @@ class Config:
 
     # PRODUCTION KEYS
 
+class TestConfig(Config):
+    FLASK_APP = 'run.py'
+    DEBUG = True
+    TESTING = True
+    WTF_CSRF_ENABLED = False
+    SQLALCHEMY_DATABASE_URI_TEST = environ.get('SQLALCHEMY_DATABASE_URI_TEST')
 
+class ProdConfig(Config):
+    FLASK_ENV = 'production'
+    DEBUG = False
+    TESTING = False
+    DATABASE_URI = environ.get('PROD_DATABASE_URI')
