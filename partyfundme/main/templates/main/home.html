@@ -183,7 +183,7 @@
                     <img
                       src="../static/bar1.jpg"
                       alt=""
-                      class="img-fluid"
+                      class="card-img-top"
                       id="bars"
                     />
                     <h3 class="my-2">Bar 1</h3>
@@ -218,11 +218,11 @@
               <div class="col-lg-3 col-md-6 col-sm-12 d-flex">
                 <div class="card flex-fill">
                   <div class="card-body">
-                    <a href="">
+                    <a href="{{url_for('bars.bars_profile', bar_id=bar.id)}}">
                       <img
-                        src="../static/bar1.jpg"
+                        src="{{bar.img}}"
                         alt=""
-                        class="img-fluid"
+                        class="card-img-top"
                         id="bars"
                     /></a>
 
