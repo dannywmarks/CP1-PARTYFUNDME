@@ -30,9 +30,4 @@ def home():
 
 @main.route("/about")
 def about():
-
-   
-
-    
-
     return render_template('hi.html', title='About')

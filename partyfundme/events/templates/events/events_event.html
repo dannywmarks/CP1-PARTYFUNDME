@@ -13,8 +13,9 @@
         
 
         <div class="container">
+          {% for bar in event.bars %}
           <div class="fb-profile">
-              <img align="left" class="fb-image-lg" src="../../../static/bars-theeparkside-header.png" alt="Profile Header"/>
+              <img align="left" class="fb-image-lg" src="{{bar.img_header}}" alt="Profile Header"/>
               <img align="left" class="fb-image-profile thumbnail border-dotted" src="{{ event_poster }}" alt="Profile side image "/>
           </div>   
               <div class="fb-profile-text">
@@ -39,7 +40,7 @@
                     <p class="text-center">{{event.date_of_party}}</p>
                     </div>
 
-                    {% for bar in event.bars %}
+                    
                     <div class="container border-dotted my-3">
                       <h6 class="text-center mt-2">Location:</h6>
                       <a href="{{url_for('bars.bars_profile', bar_id=bar.id)}}"><h3 class="text-center">{{bar.bar_name}} </h3></a>

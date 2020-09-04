@@ -83,6 +83,7 @@ def ticket():
     event = Event.query.get_or_404(event_id)
 
     event.rsvps.append(current_user)
+    event.total_fund = event.total_fund + 25
 
     db.session.add(event)
     db.session.commit()
