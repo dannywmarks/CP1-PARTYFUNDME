@@ -21,5 +21,4 @@ flaskAdmin = Admin(template_mode='bootstrap3')
 
 #Flask asset bundles
 js = Bundle('js/stripe.js',output='main.js')
-
 css = Bundle('style.css','events.css','bars.css', output='main.css')

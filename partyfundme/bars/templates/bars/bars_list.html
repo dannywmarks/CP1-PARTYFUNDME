@@ -12,27 +12,35 @@
   <div class="container  my-2"></div>
   <div class="row mb-3">
     {% for bar in bars.items %}
-    <div class="col">
+    <div class="col d-flex">
      
 
-      <div class="card" style="width: 18rem;">
+      <div class="card flex-fill" style="width: 18rem;">
         <img class="card-img-top" src="{{bar.img}}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">{{bar.bar_name}}</h5>
           <p class="card-text">{{bar.desc}}</p>
-          <div class="container text-center">
-            <a type="button" class="btn-floating btn-fb btn-sm">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a type="button" class="btn-floating btn-tw btn-sm">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a type="button" class="btn-floating btn-li btn-sm">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-          </div>
-          <a href="{{url_for('bars.bars_profile', bar_id=bar.id)}}" class="btn btn-block btn-primary">More Info</a>
+        
+        
           
+        </div>
+        <div class="card-footer">
+          <div class="container text-center">
+            <div class="container ">
+             <a type="button" class="btn-floating btn-fb btn-sm">
+               <i class="fab fa-facebook-f"></i>
+             </a>
+             <a type="button" class="btn-floating btn-tw btn-sm">
+               <i class="fab fa-twitter"></i>
+             </a>
+             <a type="button" class="btn-floating btn-li btn-sm">
+               <i class="fab fa-linkedin-in"></i>
+             </a>
+             <a href="{{url_for('bars.bars_profile', bar_id=bar.id)}}" class="btn btn-block btn-primary">More Info</a>
+           </div>
+          
+    
+            </div>
         </div>
        
       </div>

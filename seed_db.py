@@ -6,7 +6,7 @@ bcrypt = Bcrypt()
 
 with app.app_context():
 
-  
+
 
 
 # pylint: disable=E1101

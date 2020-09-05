@@ -9,8 +9,17 @@ from os import environ
 def create_app():
     
     app = Flask(__name__)
+
     # Application Configuration
-    app.config.from_object('config.Config')
+
+    if app.config['ENV'] == "production":
+        app.config.from_object('config.Config')
+    elif app.config['ENV'] == "testing":
+        app.config.from_object('config.TestConfig')
+    else:
+        app.config.from_object('config.DevConfig')
+        
+   
 
     # Initialize Plugins
 
@@ -18,7 +27,7 @@ def create_app():
     db.init_app(app)
     #BCRYPT 
     bcrypt.init_app(app)
-     #FLASK LOGIN 
+    #FLASK LOGIN 
     login_manager.init_app(app)
     #CRSFTOKEN FOR WTFORMS
     csrf.init_app(app) 

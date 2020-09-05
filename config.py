@@ -10,12 +10,12 @@ class Config:
     """ Set Flask config variables """
 
     FLASK_APP = 'run.py'
-    FLASK_ENV = 'development'
-    TESTING = False
     SECRET_KEY = environ.get('SECRET_KEY')
     DEBUG_TB_INTERCEPT_REDIRECTS = False
-    DEBUG = True
-    WTF_CSRF_ENABLED = False
+    DEBUG = False
+    TESTING = False
+    SESSION_COOKIE_SECURE = True
+    # WTF_CSRF_ENABLED = False
 
     # FLASK MAIL
     MAIL_SERVER='smtp.gmail.com'
@@ -25,13 +25,34 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USE_SSL: False
 
+    # PRODUCTION DATABASE
+    SQLALCHEMY_DATABASE_URI = environ.get('SQLALCHEMY_DATABASE_URI')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ECHO = False
+
     # FLASK-ASSETS
 
     # STATIC-ASSETS
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
 
-    # DATABASE
+    
+
+    
+
+    # PRODUCTION KEYS
+
+
+
+
+class ProdConfig(Config):
+    pass
+    
+class DevConfig(Config):
+    DEBUG = True
+    SESSION_COOKIE_SECURE = False
+
+    # DEVELOPMENT DATABASE
     SQLALCHEMY_DATABASE_URI = environ.get('SQLALCHEMY_DATABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False
@@ -40,17 +61,18 @@ class Config:
     STRIPE_PUBLIC_KEY = environ.get('STRIPE_PUBLIC_KEY')
     STRIPE_SECRET_KEY = environ.get('STRIPE_SECRET_KEY')
 
-    # PRODUCTION KEYS
-
 class TestConfig(Config):
-    FLASK_APP = 'run.py'
-    DEBUG = True
+  
     TESTING = True
     WTF_CSRF_ENABLED = False
-    SQLALCHEMY_DATABASE_URI_TEST = environ.get('SQLALCHEMY_DATABASE_URI_TEST')
+    SESSION_COOKIE_SECURE = False
+    
 
-class ProdConfig(Config):
-    FLASK_ENV = 'production'
-    DEBUG = False
-    TESTING = False
-    DATABASE_URI = environ.get('PROD_DATABASE_URI')
+    # TESTING DATABASE
+    SQLALCHEMY_DATABASE_URI = environ.get('SQLALCHEMY_DATABASE_URI_TEST')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ECHO = False
+
+    # STRIPE API TEST KEYS
+    STRIPE_PUBLIC_KEY = environ.get('STRIPE_PUBLIC_KEY')
+    STRIPE_SECRET_KEY = environ.get('STRIPE_SECRET_KEY')

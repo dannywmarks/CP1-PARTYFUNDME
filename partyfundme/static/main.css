@@ -703,6 +703,11 @@ a:hover {
     width: 25%; 
 }
 
+.bottom-align {
+  position: absolute;
+  bottom: 0;
+}
+
 
 
 @media (max-width:768px)

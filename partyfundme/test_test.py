@@ -13,11 +13,14 @@ class TestTestCase(TestCase):
       self.app_context = self.app.app_context()
       self.app_context.push()
       self.client = self.app.test_client()
-      
+
+      # db.drop_all()
+      # db.create_all()
+
+
     def tearDown(self):
       self.app_context.pop()
       
-
 
     def test_setup(self):
       

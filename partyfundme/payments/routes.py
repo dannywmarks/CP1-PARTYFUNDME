@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template, jsonify, Blueprint, url_for, abort, redirect
+from flask_login import login_required
 from os import environ
 import stripe
 
@@ -10,6 +11,7 @@ payments_blueprint= Blueprint('payments_blueprint',
                              
 
 @payments_blueprint.route('/stripe')
+@login_required
 def stripe_payment():
   stripe.api_key = environ.get('STRIPE_SECRET_KEY')
   session = stripe.checkout.Session.create(
@@ -28,6 +30,7 @@ def stripe_payment():
           }
 
 @payments_blueprint.route('/thanks')
+@login_required
 def thanks():
     """ Stripe confirmation page """
     return render_template('payments/ticket.html')
