@@ -1,7 +1,7 @@
 
 const searchEvents = async searchText => {
 
-    const res = await fetch("http://localhost:5000/api/events");
+    const res = await fetch("https://partyfund.herokuapp.com/api/events");
     partyEvents = await res.json();
     console.log(partyEvents);
 
