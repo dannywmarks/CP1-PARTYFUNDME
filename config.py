@@ -20,8 +20,8 @@ class Config:
     # FLASK MAIL
     MAIL_SERVER='smtp.gmail.com'
     MAIL_PORT = 587
-    MAIL_USERNAME= environ.get('EMAIL_USER')
-    MAIL_PASSWORD= environ.get('EMAIL_PASSWORD')
+    # MAIL_USERNAME= environ.get('EMAIL_USER')
+    # MAIL_PASSWORD= environ.get('EMAIL_PASSWORD')
     MAIL_USE_TLS = True
     MAIL_USE_SSL: False
 

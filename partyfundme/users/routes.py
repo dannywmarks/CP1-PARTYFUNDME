@@ -51,7 +51,7 @@ def signup():
             flash('User created!')
             return redirect(url_for('main.home'))
 
-        flash('User Exists!')
+        flash('User Exists!', 'danager')
     return render_template('users/signup.html', form=form)
 
 
