@@ -17,7 +17,7 @@
       <ul class="navbar-nav ">
         {% if not current_user.is_authenticated %}
         <li class="nav-item">
-          <a href="{{ url_for('main.home') }}" class="nav-link">Events</a>
+          <a href="{{ url_for('events.events_list') }}" class="nav-link">Events</a>
         </li>
         <li class="nav-item">
           <a href="{{ url_for('bars.bars_list') }}" class="nav-link">Bars</a>
