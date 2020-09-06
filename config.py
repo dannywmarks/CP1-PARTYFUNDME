@@ -12,7 +12,7 @@ class Config:
     FLASK_APP = 'run.py'
     SECRET_KEY = environ.get('SECRET_KEY')
     DEBUG_TB_INTERCEPT_REDIRECTS = False
-    DEBUG = False
+    DEBUG = True
     TESTING = False
     SESSION_COOKIE_SECURE = True
     # WTF_CSRF_ENABLED = False
