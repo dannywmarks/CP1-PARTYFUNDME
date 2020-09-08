@@ -26,7 +26,7 @@ def signup():
     if form.validate_on_submit():
         existing_user = User.query.filter_by(email=form.email.data).first()
         if existing_user is None:
-        
+            print(f'{app[MAIL_USERNAME]}')
             name = form.name.data
             email = form.email.data.lower()
             username = form.username.data
