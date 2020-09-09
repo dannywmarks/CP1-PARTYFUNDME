@@ -33,7 +33,7 @@ def signup():
 
             # Flask-Mail Create Confirmation Email 
             token = serializer.dumps(email, salt='email-confirm')
-            msg = Message(subject='Confirm Email', sender='dannywmarks@gmail.com', recipients=[email])
+            msg = Message(subject='Confirm Email', sender='dannydamage@me.com', recipients=[email])
             link = url_for('users.confirm_email', token=token, _external=True)
             msg.body = 'Your Link is {}'.format(link)
 
