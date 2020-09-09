@@ -18,8 +18,8 @@ class Config:
     # WTF_CSRF_ENABLED = False
 
     # FLASK MAIL
-    MAIL_SERVER='smtp.mailtrap.io'
-    MAIL_PORT = 2525
+    MAIL_SERVER='smtp.gmail.com'
+    MAIL_PORT = 587
     MAIL_USERNAME= environ.get('EMAIL_USER')
     MAIL_PASSWORD= environ.get('EMAIL_PASSWORD')
     MAIL_USE_TLS = True
@@ -57,7 +57,7 @@ class DevConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False
 
-    # STRIPE API KEY
+    # STRIPE API KEYS
     STRIPE_PUBLIC_KEY = environ.get('STRIPE_PUBLIC_KEY')
     STRIPE_SECRET_KEY = environ.get('STRIPE_SECRET_KEY')
 
